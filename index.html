@@ -3,31 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Conference Page</title>
+  <title>new-tonAA's Personal Homepage</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
-      color: #333;
+      background-color: #f7f7f7;
       margin: 0;
       padding: 0;
+      color: #333;
     }
     header {
       background-color: #4CAF50;
       color: white;
-      padding: 15px 0;
       text-align: center;
+      padding: 30px;
+    }
+    header h1 {
+      margin: 0;
+    }
+    header p {
+      margin: 5px;
     }
     nav {
-      display: flex;
-      justify-content: center;
       background-color: #333;
+      overflow: hidden;
     }
     nav a {
+      float: left;
+      display: block;
       color: white;
+      text-align: center;
       padding: 14px 20px;
       text-decoration: none;
-      text-align: center;
     }
     nav a:hover {
       background-color: #ddd;
@@ -36,62 +43,84 @@
     section {
       padding: 20px;
     }
+    section h2 {
+      color: #4CAF50;
+    }
     footer {
-      text-align: center;
-      padding: 20px;
       background-color: #333;
       color: white;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+    .profile-img {
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      margin: 20px 0;
+    }
+    .skills, .contact {
+      list-style-type: none;
+      padding: 0;
+    }
+    .skills li, .contact li {
+      margin: 5px 0;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Welcome to ACM MM 2026</h1>
-    <p>International Multimedia Conference</p>
+    <h1>NewtonAA</h1>
+    <p>Software Engineer | Developer | Open Source Enthusiast</p>
   </header>
 
   <nav>
-    <a href="#about">About</a>
-    <a href="#dates">Important Dates</a>
-    <a href="#papers">Call for Papers</a>
+    <a href="#about">About Me</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
     <a href="#contact">Contact</a>
   </nav>
 
   <section id="about">
-    <h2>About the Conference</h2>
-    <p>ACM MM 2026 is a prestigious international conference that brings together experts and researchers in multimedia technologies. The conference will feature state-of-the-art research on topics including machine learning, computer vision, and data analysis.</p>
+    <h2>About Me</h2>
+    <img src="https://www.example.com/your-photo.jpg" alt="Your Photo" class="profile-img">
+    <p>Hello! I'm NewtonAA, a passionate software engineer with a love for building scalable and efficient systems. I specialize in backend development and enjoy exploring new technologies. In my free time, I contribute to open-source projects and write blogs about tech and programming.</p>
   </section>
 
-  <section id="dates">
-    <h2>Important Dates</h2>
-    <ul>
-      <li>Submission Deadline: July 1, 2026</li>
-      <li>Notification of Acceptance: August 1, 2026</li>
-      <li>Conference Dates: October 10-12, 2026</li>
+  <section id="skills">
+    <h2>Skills</h2>
+    <ul class="skills">
+      <li><strong>Programming Languages:</strong> Python, JavaScript, Java, C++</li>
+      <li><strong>Web Technologies:</strong> HTML, CSS, JavaScript, React, Node.js</li>
+      <li><strong>Tools & Frameworks:</strong> Git, Docker, Kubernetes, TensorFlow, Django</li>
+      <li><strong>Databases:</strong> MySQL, MongoDB, PostgreSQL</li>
     </ul>
   </section>
 
-  <section id="papers">
-    <h2>Call for Papers</h2>
-    <p>We invite researchers and professionals to submit their papers for the ACM MM 2026 conference. Topics include, but are not limited to:</p>
+  <section id="projects">
+    <h2>Projects</h2>
     <ul>
-      <li>Computer Vision</li>
-      <li>Audio and Speech Processing</li>
-      <li>Multimedia Retrieval</li>
-      <li>AI in Multimedia</li>
+      <li><a href="https://github.com/new-tonAA/project1">Project 1</a> - A web app for managing tasks.</li>
+      <li><a href="https://github.com/new-tonAA/project2">Project 2</a> - A machine learning model for image classification.</li>
+      <li><a href="https://github.com/new-tonAA/project3">Project 3</a> - A real-time chat application using Node.js and WebSockets.</li>
     </ul>
-    <p>Please visit our submission page for full guidelines and submission instructions.</p>
   </section>
 
   <section id="contact">
-    <h2>Contact Us</h2>
-    <p>If you have any questions, feel free to reach out:</p>
-    <p>Email: <a href="mailto:acmmm2026@example.com">acmmm2026@example.com</a></p>
+    <h2>Contact</h2>
+    <ul class="contact">
+      <li>Email: <a href="mailto:newtonaa@example.com">newtonaa@example.com</a></li>
+      <li>LinkedIn: <a href="https://linkedin.com/in/newtonaa">linkedin.com/in/newtonaa</a></li>
+      <li>GitHub: <a href="https://github.com/new-tonAA">github.com/new-tonAA</a></li>
+      <li>Twitter: <a href="https://twitter.com/newtonaa">twitter.com/newtonaa</a></li>
+    </ul>
   </section>
 
   <footer>
-    <p>&copy; 2026 ACM MM Conference</p>
+    <p>&copy; 2026 NewtonAA</p>
   </footer>
 
 </body>
