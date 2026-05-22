@@ -96,71 +96,54 @@
       border-bottom: 2px solid var(--ink);
     }
 
-    .hero-layout {
-      display: grid;
-      grid-template-columns: 1fr 156px;
-      gap: 48px;
-      align-start: start;
+    .hero-layout { display: block; }
+
+    .hero-id-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
     }
 
-    .hero-eyebrow {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 16px;
+    .hero-photo-col { flex-shrink: 0; }
+
+    .hero-id-text { flex: 1; min-width: 0; }
+
+    .hero-greeting {
+      font-family: 'Lora', serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.3;
+      margin-bottom: 5px;
     }
 
     h1.hero-name {
+      display: inline;
       font-family: 'Lora', serif;
-      font-size: clamp(2.6rem, 5.5vw, 4rem);
+      font-size: 1.5rem;
       font-weight: 600;
-      line-height: 1.1;
       color: var(--ink);
-      margin-bottom: 6px;
     }
 
     .hero-name-cn {
       font-family: 'Source Serif 4', serif;
-      font-size: 1.05rem;
+      font-size: 1rem;
       color: var(--ink3);
-      font-style: italic;
-      margin-bottom: 24px;
-      letter-spacing: 0.03em;
+      margin-left: 8px;
     }
 
     .hero-affil {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 24px;
-    }
-
-    .affil-row {
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       color: var(--ink2);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .affil-row::before {
-      content: '';
-      display: inline-block;
-      width: 14px; height: 1px;
-      background: var(--rule);
-      flex-shrink: 0;
+      line-height: 1.7;
     }
 
     .hero-bio {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--ink2);
-      line-height: 1.8;
-      max-width: 560px;
-      margin-bottom: 28px;
-      border-left: 2px solid var(--rule);
-      padding-left: 16px;
+      line-height: 1.85;
+      margin-bottom: 20px;
     }
 
     .hero-chips {
@@ -220,42 +203,22 @@
     }
 
     .avatar-frame {
-      width: 148px; height: 148px;
-      border: 1px solid var(--rule);
+      width: 80px; height: 80px;
+      border: 2px solid var(--rule);
+      border-radius: 50%;
       overflow: hidden;
       background: var(--bg2);
+      flex-shrink: 0;
     }
 
     .avatar-frame img {
       width: 100%; height: 100%;
       object-fit: cover;
       object-position: center top;
-      filter: grayscale(20%) contrast(1.04);
+      filter: grayscale(10%) contrast(1.04);
       display: block;
     }
 
-    .avatar-links {
-      display: flex; flex-direction: column;
-      gap: 4px; width: 100%;
-    }
-
-    .avatar-link {
-      display: flex; align-items: center; gap: 6px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.6rem;
-      color: var(--blue);
-      text-decoration: none;
-      letter-spacing: 0.04em;
-      transition: color 0.15s;
-    }
-
-    .avatar-link:hover { color: var(--red); }
-
-    .avatar-link::before {
-      content: '›';
-      color: var(--rule);
-      font-size: 0.9rem;
-    }
 
     /* ── Section ── */
     section.page {
@@ -588,11 +551,7 @@
     .scope-prov { border: 1px solid var(--blue); color: var(--blue); }
 
     /* ── Contact ── */
-    #contact { background: var(--ink); color: var(--bg); border-bottom: none; }
-
-    #contact .sec-title { color: var(--bg); }
-    #contact .sec-num { color: #666; }
-    #contact .sec-rule { background: #333; }
+    #contact { background: var(--bg2); border-top: 2px solid var(--ink); border-bottom: none; }
 
     .contact-layout {
       display: grid;
@@ -606,15 +565,15 @@
       font-size: 1.6rem;
       font-weight: 400;
       line-height: 1.4;
-      color: var(--bg);
+      color: var(--ink);
       margin-bottom: 16px;
     }
 
-    .contact-headline em { font-style: italic; color: #c9a96e; }
+    .contact-headline em { font-style: italic; color: var(--red); }
 
     .contact-note {
       font-size: 0.83rem;
-      color: #999;
+      color: var(--ink2);
       line-height: 1.8;
     }
 
@@ -625,7 +584,7 @@
       align-items: center;
       gap: 16px;
       padding: 14px 0;
-      border-bottom: 1px solid #2a2a2a;
+      border-bottom: 1px solid var(--rule);
     }
 
     .c-label {
@@ -633,23 +592,23 @@
       font-size: 0.6rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #666;
+      color: var(--ink3);
       min-width: 72px;
     }
 
     .c-val {
       font-size: 0.82rem;
-      color: #bbb;
+      color: var(--ink2);
     }
 
-    .c-val a { color: #7eb8d4; text-decoration: none; }
-    .c-val a:hover { text-decoration: underline; }
+    .c-val a { color: var(--blue); text-decoration: none; }
+    .c-val a:hover { text-decoration: underline; color: var(--red); }
 
     /* ── Footer ── */
     footer {
-      background: var(--ink);
+      background: var(--bg);
       position: relative; z-index: 1;
-      border-top: 1px solid #222;
+      border-top: 1px solid var(--rule);
       padding: 20px 32px;
       max-width: 100%;
     }
@@ -666,7 +625,7 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.62rem;
       letter-spacing: 0.06em;
-      color: #444;
+      color: var(--ink3);
     }
 
     .footer-links { display: flex; gap: 20px; }
@@ -675,12 +634,12 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.62rem;
       letter-spacing: 0.06em;
-      color: #444;
+      color: var(--ink3);
       text-decoration: none;
       transition: color 0.2s;
     }
 
-    .footer-links a:hover { color: #888; }
+    .footer-links a:hover { color: var(--red); }
 
     /* ── Responsive ── */
     @media (max-width: 680px) {
@@ -723,42 +682,34 @@
 <section id="hero">
   <div class="page" style="border-bottom:none;padding-top:0;padding-bottom:0;">
     <div class="hero-layout">
-      <div>
-        <div class="hero-eyebrow">Software Engineer &amp; Researcher</div>
-        <h1 class="hero-name">Yuefei Zhang (张悦菲)</h1>
-        <div class="hero-affil">
-          <div class="affil-row">B.Eng. Software Engineering, SCUT</div>
-          <div class="affil-row">Minor in Business Administration</div>
-          <div class="affil-row">Intern, Tencent IEG</div>
+      <div class="hero-id-row">
+        <div class="hero-photo-col">
+          <div class="avatar-frame">
+            <img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/personal.jpg" alt="Yuefei Zhang">
+          </div>
         </div>
-        <div class="hero-bio">
-          Undergraduate researcher at South China University of Technology.
-          Research interests span computer vision and multimodal grounding.
-          Interested in game client engineering and back-end systems.
-          Open to research collaborations and internship opportunities.
-        </div>
-        <div class="hero-chips">
-          <span class="chip hi">Computer Vision</span>
-          <span class="chip hi">Game Development</span>
-          <span class="chip">Back-end</span>
-          <span class="chip">GPA 3.82 / 4.0</span>
-          <span class="chip">IELTS 7.5</span>
-        </div>
-        <div class="hero-links">
-          <a href="#projects" class="btn btn-solid">Projects</a>
-          <a href="https://github.com/new-tonAA" class="btn btn-outline" target="_blank">GitHub</a>
-          <a href="#contact" class="btn btn-outline">Contact</a>
+        <div class="hero-id-text">
+          <div class="hero-greeting">Hi! I'm <span class="hero-name">Yuefei Zhang</span><span class="hero-name-cn">（张悦菲）</span></div>
+          <div class="hero-affil">
+            Software Engineering @ South China University of Technology<br>
+            Computer Vision / Game Development / Back-end / Intern @ Tencent IEG
+          </div>
         </div>
       </div>
-      <div class="hero-photo-col">
-        <div class="avatar-frame">
-          <img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/personal.jpg" alt="Yuefei Zhang">
-        </div>
-        <div class="avatar-links">
-          <a class="avatar-link" href="https://github.com/new-tonAA" target="_blank">GitHub</a>
-          <a class="avatar-link" href="https://arxiv.org/abs/2602.13214" target="_blank">arXiv</a>
-          <a class="avatar-link" href="mailto:new-tonaa@outlook.com">Email</a>
-        </div>
+      <div class="hero-bio">
+        I am an undergraduate researcher at SCUT, with research interests in computer vision and multimodal visual grounding. I am also interested in game client engineering and back-end development. Feel free to reach out if you are interested in my work or potential collaborations.
+      </div>
+      <div class="hero-chips">
+        <span class="chip hi">Computer Vision</span>
+        <span class="chip hi">Game Development</span>
+        <span class="chip">Back-end</span>
+        <span class="chip">GPA 3.82 / 4.0</span>
+        <span class="chip">IELTS 7.5</span>
+      </div>
+      <div class="hero-links">
+        <a href="#projects" class="btn btn-solid">Projects</a>
+        <a href="https://github.com/new-tonAA" class="btn btn-outline" target="_blank">GitHub</a>
+        <a href="#contact" class="btn btn-outline">Contact</a>
       </div>
     </div>
   </div>
@@ -1001,9 +952,9 @@
 <!-- ── Contact ── -->
 <section id="contact" class="page fade-in" style="border-bottom:none;">
   <div class="sec-head">
-    <span class="sec-num" style="color:#444;">05</span>
+    <span class="sec-num">05</span>
     <h2 class="sec-title">Contact</h2>
-    <div class="sec-rule" style="background:#2a2a2a;"></div>
+    <div class="sec-rule"></div>
   </div>
   <div class="contact-layout">
     <div>
