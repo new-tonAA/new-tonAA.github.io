@@ -147,6 +147,17 @@
       margin-bottom: 20px;
     }
 
+    .name-highlight {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: -1px;
+      height: 6px;
+      background: linear-gradient(90deg, #f5c842cc, #f5a623aa, transparent);
+      border-radius: 2px;
+      z-index: -1;
+      pointer-events: none;
+    }
+
     .hero-chips {
       display: flex; flex-wrap: wrap; gap: 8px;
       margin-bottom: 32px;
@@ -690,11 +701,11 @@
           </div>
         </div>
         <div class="hero-id-text">
-          <div class="hero-greeting">Hi! I'm <span class="hero-name">Yuefei Zhang</span><span class="hero-name-cn">（张悦菲）</span></div>
+          <div class="hero-greeting">Hi! I'm <span class="hero-name">Yuefei Zhang<span class="name-highlight"></span></span><span class="hero-name-cn">（张悦菲）</span></div>
           <div class="hero-affil">
-            Software Engineering @ South China University of Technology<br>
-            Game Development @ Tencent IEG<br>
-            Computer Vision / Game Development / Back-end 
+            <span class="affil-main">Software Engineering @ South China University of Technology</span><br>
+            <span class="affil-main">Game Development @ Tencent IEG</span><br>
+            <span class="affil-sub">Computer Vision / Game Development / Back-end</span>
           </div>
         </div>
       </div>
@@ -764,6 +775,8 @@
         </div>
       </div>
     </div>
+
+  <div style="height: 24px;"></div>
 
   <div class="edu-card">
     <div class="edu-left">
