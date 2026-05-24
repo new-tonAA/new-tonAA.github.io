@@ -35,7 +35,6 @@
       overflow-x: hidden;
     }
 
-    /* ── Grain texture ── */
     body::before {
       content: '';
       position: fixed; inset: 0;
@@ -71,9 +70,7 @@
       letter-spacing: 0.01em;
     }
 
-    .nav-links {
-      display: flex; gap: 28px; list-style: none;
-    }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
 
     .nav-links a {
       text-decoration: none;
@@ -116,15 +113,27 @@
       font-weight: 500;
       color: var(--ink);
       line-height: 1.3;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
     }
 
-    h1.hero-name {
-      display: inline;
+    .hero-name {
       font-family: 'Lora', serif;
       font-size: 1.5rem;
       font-weight: 600;
       color: var(--ink);
+      position: relative;
+      display: inline;
+    }
+
+    .name-highlight {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 0px;
+      height: 7px;
+      background: linear-gradient(90deg, #f5c84299, #f5a62366, transparent);
+      border-radius: 2px;
+      z-index: -1;
+      pointer-events: none;
     }
 
     .hero-name-cn {
@@ -137,7 +146,18 @@
     .hero-affil {
       font-size: 0.88rem;
       color: var(--ink2);
-      line-height: 1.7;
+      line-height: 1.85;
+    }
+
+    .affil-main {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .affil-sub {
+      font-size: 0.82rem;
+      color: var(--ink3);
     }
 
     .hero-bio {
@@ -145,17 +165,6 @@
       color: var(--ink2);
       line-height: 1.85;
       margin-bottom: 20px;
-    }
-
-    .name-highlight {
-      position: absolute;
-      left: 0; right: 0;
-      bottom: -1px;
-      height: 6px;
-      background: linear-gradient(90deg, #f5c842cc, #f5a623aa, transparent);
-      border-radius: 2px;
-      z-index: -1;
-      pointer-events: none;
     }
 
     .hero-chips {
@@ -175,9 +184,7 @@
 
     .chip.hi { border-color: var(--red); color: var(--red); background: #fff7f7; }
 
-    .hero-links {
-      display: flex; gap: 12px; flex-wrap: wrap;
-    }
+    .hero-links { display: flex; gap: 12px; flex-wrap: wrap; }
 
     .btn {
       display: inline-block;
@@ -191,29 +198,12 @@
       border: 1px solid;
     }
 
-    .btn-solid {
-      background: var(--ink); color: var(--bg);
-      border-color: var(--ink);
-    }
-
+    .btn-solid { background: var(--ink); color: var(--bg); border-color: var(--ink); }
     .btn-solid:hover { background: var(--red); border-color: var(--red); }
-
-    .btn-outline {
-      background: transparent; color: var(--ink2);
-      border-color: var(--rule);
-    }
-
+    .btn-outline { background: transparent; color: var(--ink2); border-color: var(--rule); }
     .btn-outline:hover { border-color: var(--ink2); color: var(--ink); }
 
-    /* Avatar */
-    .hero-photo-col {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      padding-top: 8px;
-    }
-
+    /* ── Avatar ── */
     .avatar-frame {
       width: 100px; height: 100px;
       border: 2px solid var(--rule);
@@ -230,7 +220,6 @@
       filter: grayscale(10%) contrast(1.04);
       display: block;
     }
-
 
     /* ── Section ── */
     section.page {
@@ -261,12 +250,11 @@
       letter-spacing: -0.01em;
     }
 
-    .sec-rule {
-      flex: 1; height: 1px;
-      background: var(--rule-lite);
-    }
+    .sec-rule { flex: 1; height: 1px; background: var(--rule-lite); }
 
-    /* ── Education card ── */
+    /* ── Education ── */
+    .edu-stack { display: flex; flex-direction: column; gap: 24px; }
+
     .edu-card {
       display: grid;
       grid-template-columns: 220px 1fr;
@@ -297,11 +285,7 @@
       margin-bottom: 8px;
     }
 
-    .edu-major {
-      font-size: 0.8rem;
-      color: var(--ink3);
-      line-height: 1.6;
-    }
+    .edu-major { font-size: 0.8rem; color: var(--ink3); line-height: 1.6; }
 
     .edu-right {
       padding: 28px;
@@ -310,8 +294,6 @@
       gap: 20px 32px;
       align-content: start;
     }
-
-    .edu-field {}
 
     .edu-field-label {
       font-family: 'JetBrains Mono', monospace;
@@ -353,25 +335,17 @@
       gap: 12px;
     }
 
-    .tl-group-label::after {
-      content: ''; flex: 1; height: 1px;
-      background: var(--rule-lite);
-    }
+    .tl-group-label::after { content: ''; flex: 1; height: 1px; background: var(--rule-lite); }
 
     .tl {
       display: flex;
       flex-direction: column;
-      gap: 0;
       border-left: 1px solid var(--rule);
       padding-left: 28px;
       margin-left: 6px;
     }
 
-    .tl-item {
-      position: relative;
-      padding-bottom: 36px;
-    }
-
+    .tl-item { position: relative; padding-bottom: 36px; }
     .tl-item:last-child { padding-bottom: 0; }
 
     .tl-item::before {
@@ -384,10 +358,7 @@
       border: 1.5px solid var(--ink3);
     }
 
-    .tl-item.current::before {
-      background: var(--red);
-      border-color: var(--red);
-    }
+    .tl-item.current::before { background: var(--red); border-color: var(--red); }
 
     .tl-date {
       font-family: 'JetBrains Mono', monospace;
@@ -405,12 +376,7 @@
       margin-bottom: 3px;
     }
 
-    .tl-org {
-      font-size: 0.8rem;
-      color: var(--blue);
-      margin-bottom: 8px;
-      font-style: italic;
-    }
+    .tl-org { font-size: 0.8rem; color: var(--blue); margin-bottom: 8px; font-style: italic; }
 
     .tl-desc {
       font-size: 0.83rem;
@@ -432,7 +398,6 @@
     }
 
     .badge-sub { border-color: var(--green); color: var(--green); background: #f4faf5; }
-    .badge-nat { border-color: var(--red); color: var(--red); background: #fff8f8; }
 
     .tl-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
 
@@ -511,10 +476,7 @@
     }
 
     /* ── Awards ── */
-    .awards-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
+    .awards-table { width: 100%; border-collapse: collapse; }
 
     .awards-table tr {
       border-bottom: 1px solid var(--rule-lite);
@@ -523,11 +485,7 @@
 
     .awards-table tr:hover { background: var(--bg2); }
 
-    .awards-table td {
-      padding: 14px 12px;
-      font-size: 0.85rem;
-      vertical-align: middle;
-    }
+    .awards-table td { padding: 14px 12px; font-size: 0.85rem; vertical-align: middle; }
 
     .aw-year {
       font-family: 'JetBrains Mono', monospace;
@@ -540,16 +498,11 @@
 
     .aw-dot { width: 28px; text-align: center; }
 
-    .aw-dot-inner {
-      display: inline-block;
-      width: 7px; height: 7px;
-      border-radius: 50%;
-    }
-
+    .aw-dot-inner { display: inline-block; width: 7px; height: 7px; border-radius: 50%; }
     .aw-dot-inner.gold { background: var(--amber); }
     .aw-dot-inner.silver { background: var(--ink3); }
 
-    .aw-text { color: var(--ink); flex: 1; }
+    .aw-text { color: var(--ink); }
 
     .aw-scope {
       font-family: 'JetBrains Mono', monospace;
@@ -583,13 +536,9 @@
 
     .contact-headline em { font-style: italic; color: var(--red); }
 
-    .contact-note {
-      font-size: 0.83rem;
-      color: var(--ink2);
-      line-height: 1.8;
-    }
+    .contact-note { font-size: 0.83rem; color: var(--ink2); line-height: 1.8; }
 
-    .contact-entries { list-style: none; display: flex; flex-direction: column; gap: 0; }
+    .contact-entries { list-style: none; display: flex; flex-direction: column; }
 
     .contact-entries li {
       display: flex;
@@ -608,11 +557,7 @@
       min-width: 72px;
     }
 
-    .c-val {
-      font-size: 0.82rem;
-      color: var(--ink2);
-    }
-
+    .c-val { font-size: 0.82rem; color: var(--ink2); }
     .c-val a { color: var(--blue); text-decoration: none; }
     .c-val a:hover { text-decoration: underline; color: var(--red); }
 
@@ -622,7 +567,6 @@
       position: relative; z-index: 1;
       border-top: 1px solid var(--rule);
       padding: 20px 32px;
-      max-width: 100%;
     }
 
     .footer-inner {
@@ -656,9 +600,6 @@
     /* ── Responsive ── */
     @media (max-width: 680px) {
       .page { padding: 0 20px; }
-      .hero-layout { grid-template-columns: 1fr; }
-      .hero-photo-col { flex-direction: row; align-items: flex-start; }
-      .avatar-frame { width: 80px; height: 80px; }
       .edu-card { grid-template-columns: 1fr; }
       .edu-left { border-right: none; border-bottom: 1px solid var(--rule); }
       .proj-grid { grid-template-columns: 1fr; }
@@ -704,7 +645,7 @@
           <div class="hero-greeting">Hi! I'm <span class="hero-name">Yuefei Zhang<span class="name-highlight"></span></span><span class="hero-name-cn">（张悦菲）</span></div>
           <div class="hero-affil">
             <span class="affil-main">Software Engineering @ South China University of Technology</span><br>
-            <span class="affil-main">Game Development @ Tencent IEG</span><br>
+            <span class="affil-main">Game Client Development @ Tencent IEG</span><br>
             <span class="affil-sub">Computer Vision / Game Development / Back-end</span>
           </div>
         </div>
@@ -718,7 +659,6 @@
         <span class="chip">Back-end</span>
       </div>
       <div class="hero-links">
-        <!--<a href="https://new-tonaa.github.io/files/%E7%AE%80%E5%8E%8620260522.pdf" class="btn btn-solid" target="_blank">CV</a> -->
         <a href="#contact" class="btn btn-outline">Contact</a>
       </div>
     </div>
@@ -732,68 +672,71 @@
     <h2 class="sec-title">Education</h2>
     <div class="sec-rule"></div>
   </div>
-  
-  <div class="edu-card">
-    <div class="edu-left">
-      <div class="edu-school">South China University of Technology</div>
-      <div class="edu-period">Sep 2023 — Jun 2027</div>
-      <div class="edu-major">B.Eng. Software Engineering<br>School of Software Engineering<br>Minor in Business Administration</div>
-    </div>
-    <div class="edu-right">
-      <div class="edu-field">
-        <div class="edu-field-label">Research Focus</div>
-        <div class="tag-row">
-          <span class="tag em">Computer Vision</span>
-          <span class="tag em">Visual Grounding</span>
-        </div>
+
+  <div class="edu-stack">
+
+    <div class="edu-card">
+      <div class="edu-left">
+        <div class="edu-school">South China University of Technology</div>
+        <div class="edu-period">Sep 2023 — Jun 2027</div>
+        <div class="edu-major">B.Eng. Software Engineering<br>School of Software Engineering<br>Minor in Business Administration</div>
       </div>
-      <div class="edu-field">
-        <div class="edu-field-label">Academic Record</div>
-        <div class="tag-row">
-          <span class="tag em">GPA 3.82 / 4.0</span>
-          <span class="tag em">IELTS 7.5</span>
+      <div class="edu-right">
+        <div class="edu-field">
+          <div class="edu-field-label">Research Focus</div>
+          <div class="tag-row">
+            <span class="tag em">Computer Vision</span>
+            <span class="tag em">Visual Grounding</span>
+          </div>
         </div>
-      </div>
-      <div class="edu-field">
-        <div class="edu-field-label">Main Courses</div>
-        <div class="tag-row">
-          <span class="tag em">C++</span>
-          <span class="tag em">Java</span>
-          <span class="tag em">Operating System</span>
-          <span class="tag em">Computer Organization and Architecture</span>
-          <span class="tag em">Networks</span>
-          <span class="tag em">Database</span>
-          <span class="tag em">Testing</span>
-          <span class="tag em">Graphics</span>
-          <span class="tag em">Machine Learning</span>
+        <div class="edu-field">
+          <div class="edu-field-label">Academic Record</div>
+          <div class="tag-row">
+            <span class="tag em">GPA 3.82 / 4.0</span>
+            <span class="tag em">IELTS 7.5</span>
+          </div>
         </div>
-      </div>
-      <div class="">
-        <div class="edu-field-label">School Honors</div>
-        <div class="tag-row">
-          <span class="tag em">SCUT University Scholarship (2024, 2025)</span>
+        <div class="edu-field">
+          <div class="edu-field-label">Main Courses</div>
+          <div class="tag-row">
+            <span class="tag em">C++</span>
+            <span class="tag em">Java</span>
+            <span class="tag em">Operating System</span>
+            <span class="tag em">Computer Organization and Architecture</span>
+            <span class="tag em">Networks</span>
+            <span class="tag em">Database</span>
+            <span class="tag em">Testing</span>
+            <span class="tag em">Graphics</span>
+            <span class="tag em">Machine Learning</span>
+          </div>
+        </div>
+        <div class="edu-field">
+          <div class="edu-field-label">School Honors</div>
+          <div class="tag-row">
+            <span class="tag em">SCUT University Scholarship (2024, 2025)</span>
+          </div>
         </div>
       </div>
     </div>
 
-  <div style="height: 24px;"></div>
-
-  <div class="edu-card">
-    <div class="edu-left">
-      <div class="edu-school">The Affiliated High School of South China Normal University</div>
-      <div class="edu-period">Aug 2020 — Jun 2023</div>
-      <div class="edu-major">High School Diploma</div>
-    </div>
-    <div class="edu-right">
-    <div class="edu-field">
-        <div class="edu-field-label">Focus</div>
-        <div class="tag-row">
-          <span class="tag em">Science Track</span>
-          <span class="tag em">Mathematics</span>
-          <span class="tag em">Physics</span>
+    <div class="edu-card">
+      <div class="edu-left">
+        <div class="edu-school">The Affiliated High School of South China Normal University</div>
+        <div class="edu-period">Aug 2020 — Jun 2023</div>
+        <div class="edu-major">High School Diploma</div>
+      </div>
+      <div class="edu-right">
+        <div class="edu-field">
+          <div class="edu-field-label">Focus</div>
+          <div class="tag-row">
+            <span class="tag em">Science Track</span>
+            <span class="tag em">Mathematics</span>
+            <span class="tag em">Physics</span>
+          </div>
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -1024,7 +967,7 @@
         <span class="c-val"><a href="https://github.com/new-tonAA" target="_blank">github.com/new-tonAA</a></span>
       </li>
       <li>
-        <span class="c-label">linkedin</span>
+        <span class="c-label">LinkedIn</span>
         <span class="c-val"><a href="https://www.linkedin.com/in/yuefei-zhang/" target="_blank">linkedin.com/in/yuefei-zhang</a></span>
       </li>
     </ul>
