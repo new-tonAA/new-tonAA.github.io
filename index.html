@@ -1,626 +1,364 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yuefei Zhang</title>
   <link rel="icon" type="image/png" href="./image/icon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg:       #f8f6f1;
-      --bg2:      #f2efe8;
-      --surface:  #ffffff;
-      --rule:     #d4cfc4;
-      --rule-lite:#e8e4dc;
-      --ink:      #1a1916;
-      --ink2:     #4a4740;
-      --ink3:     #8a8680;
-      --red:      #8b2020;
-      --red2:     #b84040;
-      --blue:     #1a4a7a;
-      --green:    #2a5a3a;
-      --amber:    #7a5010;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Source Serif 4', Georgia, serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 15px;
-      line-height: 1.75;
-      background: var(--bg);
-      color: var(--ink);
-      overflow-x: hidden;
+      font-weight: 400;
+      line-height: 1.65;
+      color: #222;
+      background: #fff;
     }
 
-    body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-      background-size: 200px 200px;
-      pointer-events: none; z-index: 0;
+    a { color: #2563b0; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Layout ── */
+    .outer {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 28px;
     }
 
     /* ── Nav ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(4px);
+      border-bottom: 1px solid #e8e8e8;
       z-index: 100;
-      background: rgba(248,246,241,0.96);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--rule);
     }
 
     .nav-inner {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 32px;
-      height: 52px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      max-width: 720px; margin: 0 auto; padding: 0 28px;
+      height: 44px;
+      display: flex; justify-content: space-between; align-items: center;
     }
 
-    .nav-logo {
-      font-family: 'Lora', serif;
-      font-size: 1rem;
-      font-style: italic;
-      color: var(--ink);
-      letter-spacing: 0.01em;
+    .nav-name {
+      font-size: 0.88rem; font-weight: 500; color: #222;
+      font-family: 'Lora', serif; font-style: italic;
     }
 
-    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links { display: flex; gap: 22px; list-style: none; }
 
     .nav-links a {
-      text-decoration: none;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.67rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ink3);
-      transition: color 0.2s;
+      font-size: 0.78rem; color: #666; transition: color 0.15s;
     }
 
-    .nav-links a:hover { color: var(--red); }
-
-    /* ── Page wrapper ── */
-    .page { max-width: 860px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+    .nav-links a:hover { color: #222; text-decoration: none; }
 
     /* ── Hero ── */
-    #hero {
-      padding-top: 112px;
-      padding-bottom: 72px;
-      border-bottom: 2px solid var(--ink);
+    #hero { padding: 80px 0 40px; border-bottom: 1px solid #e8e8e8; }
+
+    .hero-top {
+      display: flex; align-items: flex-start;
+      gap: 22px; margin-bottom: 20px;
     }
 
-    .hero-layout { display: block; }
-
-    .hero-id-row {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      margin-bottom: 20px;
+    .avatar {
+      width: 86px; height: 86px;
+      border-radius: 50%;
+      object-fit: cover; object-position: center top;
+      flex-shrink: 0;
+      border: 1px solid #ddd;
+      filter: grayscale(8%);
     }
 
-    .hero-photo-col { flex-shrink: 0; }
+    .hero-info {}
 
-    .hero-id-text { flex: 1; min-width: 0; }
-
-    .hero-greeting {
+    h1 {
       font-family: 'Lora', serif;
-      font-size: 1.5rem;
-      font-weight: 500;
-      color: var(--ink);
-      line-height: 1.3;
-      margin-bottom: 6px;
+      font-size: 1.55rem; font-weight: 600;
+      line-height: 1.15; margin-bottom: 4px;
+      color: #111;
+      display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
     }
 
-    .hero-name {
-      font-family: 'Lora', serif;
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: var(--ink);
-      position: relative;
-      display: inline;
+    h1 .name-hl {
+      position: relative; display: inline-block;
     }
 
-    .name-highlight {
-      position: absolute;
-      left: 0; right: 0;
-      bottom: 0px;
+    h1 .name-hl::after {
+      content: '';
+      position: absolute; left: 0; right: 0; bottom: 1px;
       height: 7px;
-      background: linear-gradient(90deg, #f5c84299, #f5a62366, transparent);
-      border-radius: 2px;
-      z-index: -1;
-      pointer-events: none;
+      background: linear-gradient(90deg, rgba(245,185,40,0.5), rgba(245,160,20,0.25) 60%, transparent);
+      border-radius: 2px; z-index: -1;
     }
 
-    .hero-name-cn {
-      font-family: 'Source Serif 4', serif;
-      font-size: 1rem;
-      color: var(--ink3);
-      margin-left: 8px;
+    h1 .cn {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem; font-weight: 400; color: #888;
     }
 
     .hero-affil {
-      font-size: 0.88rem;
-      color: var(--ink2);
-      line-height: 1.85;
+      font-size: 0.9rem; line-height: 1.7; color: #444;
+      margin-bottom: 2px;
     }
 
-    .affil-main {
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--ink);
-    }
+    .hero-affil .org { font-weight: 500; color: #222; }
 
-    .affil-sub {
-      font-size: 0.82rem;
-      color: var(--ink3);
+    .hero-affil .sep { color: #bbb; margin: 0 5px; }
+
+    .hero-interest {
+      font-size: 0.82rem; color: #888; margin-top: 2px;
     }
 
     .hero-bio {
-      font-size: 0.88rem;
-      color: var(--ink2);
-      line-height: 1.85;
-      margin-bottom: 20px;
+      font-size: 0.9rem; line-height: 1.8;
+      color: #444; margin-bottom: 18px;
     }
 
-    .hero-chips {
-      display: flex; flex-wrap: wrap; gap: 8px;
-      margin-bottom: 32px;
+    /* icon links row — like Zikun Deng */
+    .hero-links {
+      display: flex; gap: 14px; align-items: center;
+      flex-wrap: wrap;
     }
 
-    .chip {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.63rem;
-      letter-spacing: 0.08em;
-      padding: 4px 10px;
-      border: 1px solid var(--rule);
-      color: var(--ink3);
-      background: var(--surface);
+    .hero-links a {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 0.8rem; color: #555;
+      border: 1px solid #ddd;
+      padding: 4px 11px; border-radius: 3px;
+      transition: border-color 0.15s, color 0.15s;
     }
 
-    .chip.hi { border-color: var(--red); color: var(--red); background: #fff7f7; }
-
-    .hero-links { display: flex; gap: 12px; flex-wrap: wrap; }
-
-    .btn {
-      display: inline-block;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 9px 20px;
+    .hero-links a:hover {
+      border-color: #2563b0; color: #2563b0;
       text-decoration: none;
-      transition: all 0.15s;
-      border: 1px solid;
     }
 
-    .btn-solid { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-    .btn-solid:hover { background: var(--red); border-color: var(--red); }
-    .btn-outline { background: transparent; color: var(--ink2); border-color: var(--rule); }
-    .btn-outline:hover { border-color: var(--ink2); color: var(--ink); }
-
-    /* ── Avatar ── */
-    .avatar-frame {
-      width: 100px; height: 100px;
-      border: 2px solid var(--rule);
-      border-radius: 50%;
-      overflow: hidden;
-      background: var(--bg2);
-      flex-shrink: 0;
+    .hero-links a svg {
+      width: 13px; height: 13px; flex-shrink: 0;
+      fill: currentColor;
     }
 
-    .avatar-frame img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      filter: grayscale(10%) contrast(1.04);
-      display: block;
-    }
+    /* ── Sections ── */
+    .sec { padding: 36px 0; border-bottom: 1px solid #e8e8e8; }
+    .sec:last-of-type { border-bottom: none; }
 
-    /* ── Section ── */
-    section.page {
-      padding-top: 56px;
-      padding-bottom: 56px;
-      border-bottom: 1px solid var(--rule-lite);
-    }
-
-    .sec-head {
-      display: flex;
-      align-items: baseline;
-      gap: 16px;
-      margin-bottom: 36px;
-    }
-
-    .sec-num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.12em;
-      color: var(--ink3);
-    }
-
-    h2.sec-title {
+    h2 {
       font-family: 'Lora', serif;
-      font-size: 1.55rem;
-      font-weight: 500;
-      color: var(--ink);
-      letter-spacing: -0.01em;
+      font-size: 1.05rem; font-weight: 600;
+      color: #111; margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 1.5px solid #111;
+      letter-spacing: 0.01em;
     }
 
-    .sec-rule { flex: 1; height: 1px; background: var(--rule-lite); }
-
-    /* ── Education ── */
-    .edu-stack { display: flex; flex-direction: column; gap: 24px; }
-
-    .edu-card {
+    /* ── Entry rows (shared by edu / exp / proj) ── */
+    .entry {
       display: grid;
-      grid-template-columns: 220px 1fr;
-      border: 1px solid var(--rule);
-      background: var(--surface);
+      grid-template-columns: 110px 1fr;
+      gap: 0 20px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f0f0;
     }
 
-    .edu-left {
-      padding: 28px;
-      background: var(--bg2);
-      border-right: 1px solid var(--rule);
+    .entry:last-child { border-bottom: none; }
+
+    .entry-date {
+      font-size: 0.75rem; color: #999;
+      padding-top: 2px; line-height: 1.5;
+      font-variant-numeric: tabular-nums;
     }
 
-    .edu-school {
-      font-family: 'Lora', serif;
-      font-size: 1.05rem;
-      font-weight: 500;
-      color: var(--ink);
-      line-height: 1.3;
-      margin-bottom: 8px;
+    .entry-title {
+      font-size: 0.93rem; font-weight: 500;
+      color: #111; margin-bottom: 2px; line-height: 1.35;
     }
 
-    .edu-period {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      color: var(--red);
-      margin-bottom: 8px;
+    .entry-sub {
+      font-size: 0.82rem; color: #2563b0;
+      margin-bottom: 5px; font-style: italic;
     }
 
-    .edu-major { font-size: 0.8rem; color: var(--ink3); line-height: 1.6; }
+    .entry-sub.gray { color: #888; font-style: normal; }
 
-    .edu-right {
-      padding: 28px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px 32px;
-      align-content: start;
+    .entry-body {
+      font-size: 0.85rem; color: #555;
+      line-height: 1.75; margin-bottom: 7px;
     }
 
-    .edu-field-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ink3);
-      margin-bottom: 8px;
-      padding-bottom: 4px;
-      border-bottom: 1px solid var(--rule-lite);
-    }
-
-    .tag-row { display: flex; flex-wrap: wrap; gap: 5px; }
-
-    .tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.62rem;
-      padding: 3px 8px;
-      border: 1px solid var(--rule);
-      color: var(--ink3);
-      background: var(--bg2);
-      letter-spacing: 0.04em;
-    }
-
-    .tag.em { border-color: var(--red); color: var(--red); background: #fff8f8; }
-
-    /* ── Timeline ── */
-    .tl-group { margin-bottom: 48px; }
-
-    .tl-group-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--blue);
-      margin-bottom: 24px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .tl-group-label::after { content: ''; flex: 1; height: 1px; background: var(--rule-lite); }
-
-    .tl {
-      display: flex;
-      flex-direction: column;
-      border-left: 1px solid var(--rule);
-      padding-left: 28px;
-      margin-left: 6px;
-    }
-
-    .tl-item { position: relative; padding-bottom: 36px; }
-    .tl-item:last-child { padding-bottom: 0; }
-
-    .tl-item::before {
-      content: '';
-      position: absolute;
-      left: -33px; top: 7px;
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--surface);
-      border: 1.5px solid var(--ink3);
-    }
-
-    .tl-item.current::before { background: var(--red); border-color: var(--red); }
-
-    .tl-date {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.63rem;
-      letter-spacing: 0.1em;
-      color: var(--ink3);
-      margin-bottom: 4px;
-    }
-
-    .tl-title {
-      font-family: 'Lora', serif;
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--ink);
+    /* inline detail lines */
+    .entry-meta {
+      font-size: 0.82rem; color: #555;
       margin-bottom: 3px;
     }
 
-    .tl-org { font-size: 0.8rem; color: var(--blue); margin-bottom: 8px; font-style: italic; }
-
-    .tl-desc {
-      font-size: 0.83rem;
-      color: var(--ink2);
-      line-height: 1.75;
-      max-width: 600px;
-      margin-bottom: 10px;
+    .entry-meta .lbl {
+      color: #999; margin-right: 6px;
+      font-size: 0.75rem; text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
-    .tl-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .entry-meta .val { color: #333; }
+    .entry-meta .hi  { color: #b91c1c; font-weight: 500; }
+
+    /* tags */
+    .tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+
+    .tag {
+      font-size: 0.72rem; padding: 1px 7px;
+      border: 1px solid #ddd; color: #666;
+      border-radius: 2px;
+    }
+
+    .tag.hi { border-color: #b91c1c; color: #b91c1c; }
+
+    /* badges */
+    .badges { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
 
     .badge {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.58rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 3px 8px;
-      border: 1px solid;
+      font-size: 0.7rem; padding: 2px 7px;
+      border-radius: 2px; border: 1px solid;
     }
 
-    .badge-sub { border-color: var(--green); color: var(--green); background: #f4faf5; }
+    .badge-paper { border-color: #166534; color: #166534; background: #f0fdf4; }
+    .badge-now   { border-color: #b91c1c; color: #b91c1c; background: #fff5f5; }
 
-    .tl-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
-
-    .tl-link {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.08em;
-      color: var(--blue);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      transition: color 0.15s;
+    /* ext link */
+    .elink {
+      font-size: 0.78rem; color: #2563b0;
+      display: inline-flex; align-items: center; gap: 3px;
+      margin-top: 4px;
     }
 
-    .tl-link::after { content: ' ↗'; }
-    .tl-link:hover { color: var(--red); }
-
-    /* ── Projects ── */
-    .proj-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1px;
-      background: var(--rule);
-      border: 1px solid var(--rule);
-    }
-
-    .proj-card {
-      background: var(--surface);
-      padding: 24px;
-      transition: background 0.15s;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .proj-card:hover { background: var(--bg2); }
-
-    .proj-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-
-    .proj-date {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.08em;
-      color: var(--ink3);
-    }
-
-    .proj-role {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.58rem;
-      letter-spacing: 0.06em;
-      padding: 2px 7px;
-      border: 1px solid var(--green);
-      color: var(--green);
-    }
-
-    .proj-title {
-      font-family: 'Lora', serif;
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--ink);
-      margin-bottom: 8px;
-      line-height: 1.3;
-    }
-
-    .proj-desc {
-      font-size: 0.8rem;
-      color: var(--ink2);
-      line-height: 1.7;
-      flex: 1;
-      margin-bottom: 14px;
-    }
+    .elink::after { content: '↗'; font-size: 0.7rem; }
+    .elink:hover { text-decoration: underline; }
 
     /* ── Awards ── */
-    .awards-table { width: 100%; border-collapse: collapse; }
-
-    .awards-table tr {
-      border-bottom: 1px solid var(--rule-lite);
-      transition: background 0.1s;
+    .aw-entry {
+      display: grid;
+      grid-template-columns: 38px 14px 1fr auto;
+      gap: 0 12px;
+      align-items: baseline;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
     }
 
-    .awards-table tr:hover { background: var(--bg2); }
+    .aw-entry:last-child { border-bottom: none; }
 
-    .awards-table td { padding: 14px 12px; font-size: 0.85rem; vertical-align: middle; }
-
-    .aw-year {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--ink3);
-      letter-spacing: 0.06em;
-      white-space: nowrap;
-      width: 56px;
+    .aw-yr {
+      font-size: 0.75rem; color: #999;
+      font-variant-numeric: tabular-nums;
     }
 
-    .aw-dot { width: 28px; text-align: center; }
+    .aw-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      display: inline-block; margin-bottom: 1px;
+    }
 
-    .aw-dot-inner { display: inline-block; width: 7px; height: 7px; border-radius: 50%; }
-    .aw-dot-inner.gold { background: var(--amber); }
-    .aw-dot-inner.silver { background: var(--ink3); }
+    .aw-dot.gold   { background: #b45309; }
+    .aw-dot.silver { background: #9ca3af; }
 
-    .aw-text { color: var(--ink); }
+    .aw-text { font-size: 0.88rem; color: #222; }
 
     .aw-scope {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.58rem;
-      letter-spacing: 0.08em;
-      padding: 2px 7px;
-      white-space: nowrap;
+      font-size: 0.68rem; padding: 1px 6px;
+      border: 1px solid; white-space: nowrap; border-radius: 2px;
     }
 
-    .scope-nat { border: 1px solid var(--red); color: var(--red); }
-    .scope-prov { border: 1px solid var(--blue); color: var(--blue); }
+    .scope-int  { border-color: #b91c1c; color: #b91c1c; }
+    .scope-nat  { border-color: #b45309; color: #b45309; }
+    .scope-prov { border-color: #1d4ed8; color: #1d4ed8; }
 
     /* ── Contact ── */
-    #contact { background: var(--bg2); border-top: 2px solid var(--ink); border-bottom: none; }
+    #contact { padding: 36px 0 48px; }
 
-    .contact-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: start;
+    .contact-wrap {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 40px;
     }
 
-    .contact-headline {
+    .contact-hed {
       font-family: 'Lora', serif;
-      font-size: 1.6rem;
-      font-weight: 400;
-      line-height: 1.4;
-      color: var(--ink);
-      margin-bottom: 16px;
+      font-size: 1.25rem; font-weight: 400;
+      line-height: 1.45; color: #111; margin-bottom: 10px;
     }
 
-    .contact-headline em { font-style: italic; color: var(--red); }
+    .contact-hed em { font-style: italic; color: #b91c1c; }
 
-    .contact-note { font-size: 0.83rem; color: var(--ink2); line-height: 1.8; }
+    .contact-note { font-size: 0.83rem; color: #666; line-height: 1.75; }
 
-    .contact-entries { list-style: none; display: flex; flex-direction: column; }
+    .c-list { list-style: none; }
 
-    .contact-entries li {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--rule);
+    .c-list li {
+      display: flex; align-items: baseline; gap: 12px;
+      padding: 9px 0; border-bottom: 1px solid #f0f0f0;
+      font-size: 0.83rem;
     }
 
-    .c-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ink3);
-      min-width: 72px;
+    .c-list li:last-child { border-bottom: none; }
+
+    .c-lbl {
+      font-size: 0.72rem; text-transform: uppercase;
+      letter-spacing: 0.06em; color: #999; min-width: 64px;
     }
 
-    .c-val { font-size: 0.82rem; color: var(--ink2); }
-    .c-val a { color: var(--blue); text-decoration: none; }
-    .c-val a:hover { text-decoration: underline; color: var(--red); }
+    .c-val { color: #444; }
 
     /* ── Footer ── */
     footer {
-      background: var(--bg);
-      position: relative; z-index: 1;
-      border-top: 1px solid var(--rule);
-      padding: 20px 32px;
+      border-top: 1px solid #e8e8e8;
+      padding: 16px 0;
     }
 
     .footer-inner {
-      max-width: 860px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      max-width: 720px; margin: 0 auto; padding: 0 28px;
+      display: flex; justify-content: space-between; align-items: center;
     }
 
-    .footer-copy {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.06em;
-      color: var(--ink3);
+    .footer-copy { font-size: 0.72rem; color: #aaa; }
+
+    .footer-links { display: flex; gap: 16px; }
+
+    .footer-links a { font-size: 0.72rem; color: #aaa; }
+    .footer-links a:hover { color: #222; text-decoration: none; }
+
+    /* ── Subhead divider ── */
+    .subhead {
+      font-size: 0.72rem; text-transform: uppercase;
+      letter-spacing: 0.1em; color: #999;
+      margin: 20px 0 4px;
+      display: flex; align-items: center; gap: 10px;
     }
 
-    .footer-links { display: flex; gap: 20px; }
-
-    .footer-links a {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.06em;
-      color: var(--ink3);
-      text-decoration: none;
-      transition: color 0.2s;
+    .subhead::after {
+      content: ''; flex: 1; height: 1px; background: #ececec;
     }
 
-    .footer-links a:hover { color: var(--red); }
+    /* ── Fade in ── */
+    .fi { opacity: 0; transform: translateY(10px); transition: opacity 0.4s ease, transform 0.4s ease; }
+    .fi.on { opacity: 1; transform: none; }
 
     /* ── Responsive ── */
-    @media (max-width: 680px) {
-      .page { padding: 0 20px; }
-      .edu-card { grid-template-columns: 1fr; }
-      .edu-left { border-right: none; border-bottom: 1px solid var(--rule); }
-      .proj-grid { grid-template-columns: 1fr; }
-      .contact-layout { grid-template-columns: 1fr; gap: 32px; }
+    @media (max-width: 580px) {
+      .outer { padding: 0 18px; }
+      .entry { grid-template-columns: 1fr; }
+      .entry-date { margin-bottom: 2px; }
+      .contact-wrap { grid-template-columns: 1fr; gap: 24px; }
       nav { display: none; }
+      .aw-entry { grid-template-columns: 38px 14px 1fr; }
+      .aw-scope { display: none; }
     }
-
-    /* ── Scroll animation ── */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-    .fade-in.visible { opacity: 1; transform: none; }
   </style>
 </head>
 <body>
 
 <nav>
   <div class="nav-inner">
-    <div class="nav-logo">Yuefei Zhang</div>
+    <span class="nav-name">Yuefei Zhang</span>
     <ul class="nav-links">
       <li><a href="#education">Education</a></li>
       <li><a href="#experience">Experience</a></li>
@@ -633,107 +371,76 @@
 
 <!-- ── Hero ── -->
 <section id="hero">
-  <div class="page" style="border-bottom:none;padding-top:0;padding-bottom:0;">
-    <div class="hero-layout">
-      <div class="hero-id-row">
-        <div class="hero-photo-col">
-          <div class="avatar-frame">
-            <img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/personal.jpg" alt="Yuefei Zhang">
-          </div>
+  <div class="outer">
+    <div class="hero-top">
+      <img class="avatar"
+           src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/personal.jpg"
+           alt="Yuefei Zhang">
+      <div class="hero-info">
+        <h1>
+          <span class="name-hl">Yuefei Zhang</span>
+          <span class="cn">（张悦菲）</span>
+        </h1>
+        <div class="hero-affil">
+          <span class="org">Software Engineering</span> @ South China University of Technology<br>
+          <span class="org">Game Client Development</span> @ Tencent IEG
         </div>
-        <div class="hero-id-text">
-          <div class="hero-greeting">Hi! I'm <span class="hero-name">Yuefei Zhang<span class="name-highlight"></span></span><span class="hero-name-cn">（张悦菲）</span></div>
-          <div class="hero-affil">
-            <span class="affil-main">Software Engineering @ South China University of Technology</span><br>
-            <span class="affil-main">Game Client Development @ Tencent IEG</span><br>
-            <span class="affil-sub">Computer Vision / Game Development / Back-end</span>
-          </div>
-        </div>
+        <div class="hero-interest">Computer Vision · Game Development · Back-end Engineering</div>
       </div>
-      <div class="hero-bio">
-        I am an undergraduate researcher at SCUT, with research interests in computer vision and multimodal visual grounding. I am also interested in game client engineering and back-end development. Feel free to reach out if you are interested in my work or potential collaborations.
-      </div>
-      <div class="hero-chips">
-        <span class="chip hi">Computer Vision</span>
-        <span class="chip hi">Game Development</span>
-        <span class="chip">Back-end</span>
-      </div>
-      <div class="hero-links">
-        <a href="#contact" class="btn btn-outline">Contact</a>
-      </div>
+    </div>
+
+    <p class="hero-bio">
+      I am an undergraduate researcher at SCUT, with research interests in computer vision and multimodal visual grounding. I am also interested in game client engineering and back-end systems. Feel free to reach out if you are interested in my work or potential collaborations.
+    </p>
+
+    <div class="hero-links">
+      <a href="mailto:new-tonaa@outlook.com">
+        <svg viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+        Email
+      </a>
+      <a href="https://github.com/new-tonAA" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/yuefei-zhang/" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://arxiv.org/abs/2602.13214" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+        arXiv
+      </a>
+      <a href="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/files/%E7%AE%80%E5%8E%8620260522.pdf" target="_blank">
+        <svg viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/></svg>
+        CV
+      </a>
     </div>
   </div>
 </section>
 
 <!-- ── Education ── -->
-<section id="education" class="page fade-in">
-  <div class="sec-head">
-    <span class="sec-num">01</span>
-    <h2 class="sec-title">Education</h2>
-    <div class="sec-rule"></div>
-  </div>
+<section id="education" class="sec fi">
+  <div class="outer">
+    <h2>Education</h2>
 
-  <div class="edu-stack">
-
-    <div class="edu-card">
-      <div class="edu-left">
-        <div class="edu-school">South China University of Technology</div>
-        <div class="edu-period">Sep 2023 — Jun 2027</div>
-        <div class="edu-major">B.Eng. Software Engineering<br>School of Software Engineering<br>Minor in Business Administration</div>
-      </div>
-      <div class="edu-right">
-        <div class="edu-field">
-          <div class="edu-field-label">Research Focus</div>
-          <div class="tag-row">
-            <span class="tag em">Computer Vision</span>
-            <span class="tag em">Visual Grounding</span>
-          </div>
-        </div>
-        <div class="edu-field">
-          <div class="edu-field-label">Academic Record</div>
-          <div class="tag-row">
-            <span class="tag em">GPA 3.82 / 4.0</span>
-            <span class="tag em">IELTS 7.5</span>
-          </div>
-        </div>
-        <div class="edu-field">
-          <div class="edu-field-label">Main Courses</div>
-          <div class="tag-row">
-            <span class="tag em">C++</span>
-            <span class="tag em">Java</span>
-            <span class="tag em">Operating System</span>
-            <span class="tag em">Computer Organization and Architecture</span>
-            <span class="tag em">Networks</span>
-            <span class="tag em">Database</span>
-            <span class="tag em">Testing</span>
-            <span class="tag em">Graphics</span>
-            <span class="tag em">Machine Learning</span>
-          </div>
-        </div>
-        <div class="edu-field">
-          <div class="edu-field-label">School Honors</div>
-          <div class="tag-row">
-            <span class="tag em">SCUT University Scholarship (2024, 2025)</span>
-          </div>
-        </div>
+    <div class="entry">
+      <div class="entry-date">Sep 2023 –<br>Jun 2027</div>
+      <div>
+        <div class="entry-title">South China University of Technology</div>
+        <div class="entry-sub gray">B.Eng. Software Engineering · Minor in Business Administration</div>
+        <div class="entry-meta"><span class="lbl">Research</span><span class="val"><span class="hi">Computer Vision</span>, <span class="hi">Visual Grounding</span></span></div>
+        <div class="entry-meta"><span class="lbl">GPA</span><span class="val"><span class="hi">3.82 / 4.0</span></span> &nbsp;·&nbsp; <span class="lbl">IELTS</span><span class="val"><span class="hi">7.5</span></span></div>
+        <div class="entry-meta"><span class="lbl">Honors</span><span class="val">SCUT University Scholarship (2024, 2025)</span></div>
+        <div class="entry-meta"><span class="lbl">Courses</span><span class="val">C++, Java, Operating System, Computer Architecture, Networks, Database, Software Testing, Computer Graphics, Machine Learning</span></div>
       </div>
     </div>
 
-    <div class="edu-card">
-      <div class="edu-left">
-        <div class="edu-school">The Affiliated High School of South China Normal University</div>
-        <div class="edu-period">Aug 2020 — Jun 2023</div>
-        <div class="edu-major">High School Diploma</div>
-      </div>
-      <div class="edu-right">
-        <div class="edu-field">
-          <div class="edu-field-label">Focus</div>
-          <div class="tag-row">
-            <span class="tag em">Science Track</span>
-            <span class="tag em">Mathematics</span>
-            <span class="tag em">Physics</span>
-          </div>
-        </div>
+    <div class="entry">
+      <div class="entry-date">Aug 2020 –<br>Jun 2023</div>
+      <div>
+        <div class="entry-title">The Affiliated High School of SCNU</div>
+        <div class="entry-sub gray">High School Diploma · Science Track</div>
+        <div class="entry-meta"><span class="lbl">Focus</span><span class="val">Mathematics, Physics</span></div>
       </div>
     </div>
 
@@ -741,242 +448,167 @@
 </section>
 
 <!-- ── Experience ── -->
-<section id="experience" class="page fade-in">
-  <div class="sec-head">
-    <span class="sec-num">02</span>
-    <h2 class="sec-title">Experience</h2>
-    <div class="sec-rule"></div>
-  </div>
+<section id="experience" class="sec fi">
+  <div class="outer">
+    <h2>Experience</h2>
 
-  <div class="tl-group">
-    <div class="tl-group-label">Internship</div>
-    <div class="tl">
-      <div class="tl-item current">
-        <div class="tl-date">Apr 2026 — Present</div>
-        <div class="tl-title">Game Client Developer Intern</div>
-        <div class="tl-org">Tencent · Interactive Entertainment Group (IEG)</div>
-        <div class="tl-desc">
-          Working on developing game clients based on Unreal Engine 5 and creating a UGC project now, where I was mainly responsible for gameplay design and implementation.
-        </div>
-        <div class="tl-tags">
-          <span class="tag em">C++</span>
-          <span class="tag em">TypeScript</span>
-          <span class="tag em">Unreal Engine 5</span>
-          <span class="tag">Game Client</span>
-        </div>
-      </div>
+    <div class="subhead">Internship</div>
 
-      <div class="tl-item">
-        <div class="tl-date">Jun 2025 — Aug 2025</div>
-        <div class="tl-title">Visual Department Developer Intern</div>
-        <div class="tl-org">Guangzhou EHang Intelligent Technology Co., Ltd.</div>
-        <div class="tl-desc">
-          Developed features for QGroundControl (QGC), an open-source drone ground control station.
-          Worked with Ubuntu 22.04 and Qt for cross-platform compilation.
-          Identified and fixed a bug that was merged into the official QGC repository.
-        </div>
-        <div class="tl-tags">
-          <span class="tag em">C++</span>
-          <span class="tag em">Qt</span>
-          <span class="tag">Ubuntu 22.04</span>
-          <span class="tag">Cross-platform</span>
-        </div>
-        <a class="tl-link" href="https://github.com/mavlink/qgroundcontrol/pull/13209" target="_blank">View PR #13209</a>
+    <div class="entry">
+      <div class="entry-date">Apr 2026 –<br>Present</div>
+      <div>
+        <div class="entry-title">Game Client Developer Intern <span style="font-weight:400;color:#999;font-size:0.8rem">· Tencent IEG</span></div>
+        <div class="entry-body">Working on developing game clients based on Unreal Engine 5 and creating a UGC project, mainly responsible for gameplay design and implementation.</div>
+        <div class="tags"><span class="tag hi">C++</span><span class="tag hi">TypeScript</span><span class="tag hi">Unreal Engine 5</span><span class="tag">Game Client</span></div>
+        <div class="badges"><span class="badge badge-now">Current</span></div>
       </div>
     </div>
-  </div>
 
-  <div class="tl-group">
-    <div class="tl-group-label">Research</div>
-    <div class="tl">
-      <div class="tl-item">
-        <div class="tl-date">Mar 2025 — Apr 2026</div>
-        <div class="tl-title">Show Me the Answer: Visual Grounding on Dashboard</div>
-        <div class="tl-org">First Author</div>
-        <div class="tl-desc">
-          Lead research on visual grounding applied to dashboard environments.
-          Proposes a novel benchmark and method for locating answer regions within complex analytical interfaces.
-        </div>
-        <div class="tl-badges">
-          <span class="badge badge-sub">ACM MM 2026 · In Submission</span>
-        </div>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-date">Nov 2025 — Jan 2026</div>
-        <div class="tl-title">BotzoneBench: Scalable LLM Evaluation via Graded AI Anchors</div>
-        <div class="tl-org">Third Author</div>
-        <div class="tl-desc">
-          Contributed to the development of a scalable LLM evaluation framework
-          using graded AI anchor systems to enable systematic, cost-effective model assessment.
-        </div>
-        <div class="tl-badges">
-          <span class="badge badge-sub">NeurIPS 2026 · In Submission</span>
-        </div>
-        <a class="tl-link" href="https://arxiv.org/abs/2602.13214" target="_blank">arXiv preprint</a>
+    <div class="entry">
+      <div class="entry-date">Jun 2025 –<br>Aug 2025</div>
+      <div>
+        <div class="entry-title">Visual Department Developer Intern <span style="font-weight:400;color:#999;font-size:0.8rem">· EHang</span></div>
+        <div class="entry-body">Developed features for QGroundControl (QGC), an open-source drone ground control station, using Ubuntu 22.04 and Qt for cross-platform compilation. Identified and fixed a bug merged into the official repository.</div>
+        <div class="tags"><span class="tag hi">C++</span><span class="tag hi">Qt</span><span class="tag">Ubuntu 22.04</span><span class="tag">Cross-platform</span></div>
+        <a class="elink" href="https://github.com/mavlink/qgroundcontrol/pull/13209" target="_blank">View PR #13209</a>
       </div>
     </div>
+
+    <div class="subhead">Research</div>
+
+    <div class="entry">
+      <div class="entry-date">Mar 2025 –<br>Apr 2026</div>
+      <div>
+        <div class="entry-title">Show Me the Answer: Visual Grounding on Dashboard</div>
+        <div class="entry-sub">First Author</div>
+        <div class="entry-body">Lead research on visual grounding applied to dashboard environments. Proposes a novel benchmark and method for locating answer regions within complex analytical interfaces.</div>
+        <div class="badges"><span class="badge badge-paper">ACM MM 2026 · In Submission</span></div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-date">Nov 2025 –<br>Jan 2026</div>
+      <div>
+        <div class="entry-title">BotzoneBench: Scalable LLM Evaluation via Graded AI Anchors</div>
+        <div class="entry-sub">Third Author</div>
+        <div class="entry-body">Contributed to a scalable LLM evaluation framework using graded AI anchor systems for systematic, cost-effective model assessment.</div>
+        <div class="badges"><span class="badge badge-paper">NeurIPS 2026 · In Submission</span></div>
+        <a class="elink" href="https://arxiv.org/abs/2602.13214" target="_blank">arXiv preprint</a>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <!-- ── Projects ── -->
-<section id="projects" class="page fade-in">
-  <div class="sec-head">
-    <span class="sec-num">03</span>
-    <h2 class="sec-title">Projects</h2>
-    <div class="sec-rule"></div>
-  </div>
+<section id="projects" class="sec fi">
+  <div class="outer">
+    <h2>Projects</h2>
 
-  <div class="proj-grid">
-    <div class="proj-card">
-      <div class="proj-meta">
-        <span class="proj-date">May – Jun 2026</span>
-        <span class="proj-role">Main Developer</span>
+    <div class="entry">
+      <div class="entry-date">May – Jun 2026</div>
+      <div>
+        <div class="entry-title">DesignTree Agent</div>
+        <div class="entry-body">AI-powered architectural design studio with visual design tree management. The agent automatically learns style preferences from selected images and generates coherent architectural concepts.</div>
+        <div class="tags"><span class="tag hi">Python</span><span class="tag">Agent</span><span class="tag">Image Generation</span></div>
+        <a class="elink" href="https://github.com/new-tonAA/DesignTree" target="_blank">GitHub</a>
       </div>
-      <div class="proj-title">DesignTree Agent</div>
-      <div class="proj-desc">
-        AI-powered architectural design studio with visual design tree management.
-        The agent automatically learns style preferences from selected images and generates coherent architectural concepts.
-      </div>
-      <div class="tl-tags">
-        <span class="tag em">Python</span><span class="tag">Agent</span><span class="tag">Image Generation</span>
-      </div>
-      <a class="tl-link" href="https://github.com/new-tonAA/DesignTree" target="_blank">GitHub Repo</a>
     </div>
 
-    <div class="proj-card">
-      <div class="proj-meta">
-        <span class="proj-date">Mar – Apr 2026</span>
-        <span class="proj-role">Main Developer</span>
+    <div class="entry">
+      <div class="entry-date">Mar – Apr 2026</div>
+      <div>
+        <div class="entry-title">Software Testing Agent</div>
+        <div class="entry-body">End-to-end testing agent for C-based projects (e.g., SQLite3) with a collaborative pipeline for environment setup, static analysis, planning, execution, and refinement. Features iterative self-healing and dual-platform LLM integration.</div>
+        <div class="tags"><span class="tag hi">Python</span><span class="tag">Agent</span><span class="tag">LLM</span></div>
+        <a class="elink" href="https://github.com/new-tonAA/stupid_agent" target="_blank">GitHub</a>
       </div>
-      <div class="proj-title">Software Testing Agent</div>
-      <div class="proj-desc">
-        End-to-end testing agent for C-based projects (e.g., SQLite3) with a collaborative pipeline of specialized agents for environment setup, static analysis, planning, execution, and refinement. Features an iterative self-healing loop and dual-platform LLM integration.
-      </div>
-      <div class="tl-tags">
-        <span class="tag em">Python</span><span class="tag">Agent</span><span class="tag">LLM</span>
-      </div>
-      <a class="tl-link" href="https://github.com/new-tonAA/stupid_agent" target="_blank">GitHub Repo</a>
     </div>
 
-    <div class="proj-card">
-      <div class="proj-meta">
-        <span class="proj-date">Oct – Nov 2025</span>
-        <span class="proj-role">Main Developer</span>
+    <div class="entry">
+      <div class="entry-date">Oct – Nov 2025</div>
+      <div>
+        <div class="entry-title">ResidentRun</div>
+        <div class="entry-body">Intense 3D action-escape game built on UE5. Features sophisticated AI hunters, a "Bullet Time" mechanic for strategic escapes, and high-fidelity environmental rendering in an infinite atmospheric facility.</div>
+        <div class="tags"><span class="tag hi">UE5</span><span class="tag">C++</span><span class="tag">Blueprint</span></div>
+        <a class="elink" href="https://github.com/new-tonAA/ResidentRun-UE5Game" target="_blank">GitHub</a>
       </div>
-      <div class="proj-title">ResidentRun</div>
-      <div class="proj-desc">
-        Intense 3D action-escape game built on UE5. Players navigate an infinite atmospheric facility under high-pressure decision-making constraints. Features sophisticated AI hunters, a "Bullet Time" mechanic for strategic escapes, and high-fidelity environmental rendering.
-      </div>
-      <div class="tl-tags">
-        <span class="tag em">UE5</span><span class="tag">C++</span><span class="tag">Blueprint</span>
-      </div>
-      <a class="tl-link" href="https://github.com/new-tonAA/ResidentRun-UE5Game" target="_blank">GitHub Repo</a>
     </div>
 
-    <div class="proj-card">
-      <div class="proj-meta">
-        <span class="proj-date">Jun – Sep 2025</span>
-        <span class="proj-role">Main Developer</span>
+    <div class="entry">
+      <div class="entry-date">Jun – Sep 2025</div>
+      <div>
+        <div class="entry-title">TOtoTO — Campus Image Search</div>
+        <div class="entry-body">Intelligent tour guide platform for SCUT integrating computer vision and location services. Faiss-based semantic image retrieval, real-time map localization, and AI-generated cultural introductions via LLM. Built with Vue 3, Flask, and MySQL.</div>
+        <div class="tags"><span class="tag hi">Vue 3</span><span class="tag hi">Python</span><span class="tag">Faiss</span><span class="tag">Vector Search</span></div>
+        <a class="elink" href="https://github.com/new-tonAA/TOtoTO" target="_blank">GitHub</a>
       </div>
-      <div class="proj-title">TOtoTO — Campus Image Search</div>
-      <div class="proj-desc">
-        Intelligent tour guide platform for SCUT integrating computer vision and location services. Faiss-based semantic image retrieval, real-time map localization for campus landmarks, and AI-generated cultural introductions. Built with Vue 3 + Vite, Flask, and MySQL.
-      </div>
-      <div class="tl-tags">
-        <span class="tag em">Vue 3</span><span class="tag em">Python</span><span class="tag">Faiss</span><span class="tag">Vector Search</span>
-      </div>
-      <a class="tl-link" href="https://github.com/new-tonAA/TOtoTO" target="_blank">GitHub Repo</a>
     </div>
+
   </div>
 </section>
 
 <!-- ── Awards ── -->
-<section id="awards" class="page fade-in">
-  <div class="sec-head">
-    <span class="sec-num">04</span>
-    <h2 class="sec-title">Awards &amp; Honors</h2>
-    <div class="sec-rule"></div>
-  </div>
+<section id="awards" class="sec fi">
+  <div class="outer">
+    <h2>Awards &amp; Honors</h2>
 
-  <table class="awards-table">
-    <tbody>
-      <tr>
-        <td class="aw-year">2026</td>
-        <td class="aw-dot"><span class="aw-dot-inner gold"></span></td>
-        <td class="aw-text">Meritorious Winner · Mathematical Contest in Modeling (MCM)</td>
-        <td><span class="aw-scope scope-nat">International</span></td>
-      </tr>
-      <tr>
-        <td class="aw-year">2025</td>
-        <td class="aw-dot"><span class="aw-dot-inner silver"></span></td>
-        <td class="aw-text">First Prize · CUMCM National Math Modeling Competition</td>
-        <td><span class="aw-scope scope-prov">Provincial</span></td>
-      </tr>
-      <tr>
-        <td class="aw-year">2025</td>
-        <td class="aw-dot"><span class="aw-dot-inner gold"></span></td>
-        <td class="aw-text">Second Prize · 15th National IT Innovation Application Contest</td>
-        <td><span class="aw-scope scope-nat">National</span></td>
-      </tr>
-      <tr>
-        <td class="aw-year">2025</td>
-        <td class="aw-dot"><span class="aw-dot-inner silver"></span></td>
-        <td class="aw-text">Third Prize · National Undergraduate Mathematics Competition</td>
-        <td><span class="aw-scope scope-prov">Provincial</span></td>
-      </tr>
-      <tr>
-        <td class="aw-year">2024</td>
-        <td class="aw-dot"><span class="aw-dot-inner silver"></span></td>
-        <td class="aw-text">Second Prize · National Undergraduate Mathematics Competition</td>
-        <td><span class="aw-scope scope-prov">Provincial</span></td>
-      </tr>
-    </tbody>
-  </table>
+    <div class="aw-entry">
+      <span class="aw-yr">2026</span>
+      <span class="aw-dot gold"></span>
+      <span class="aw-text">Meritorious Winner · Mathematical Contest in Modeling (MCM)</span>
+      <span class="aw-scope scope-int">International</span>
+    </div>
+    <div class="aw-entry">
+      <span class="aw-yr">2025</span>
+      <span class="aw-dot silver"></span>
+      <span class="aw-text">First Prize · CUMCM National Math Modeling Competition</span>
+      <span class="aw-scope scope-prov">Provincial</span>
+    </div>
+    <div class="aw-entry">
+      <span class="aw-yr">2025</span>
+      <span class="aw-dot gold"></span>
+      <span class="aw-text">Second Prize · 15th National IT Innovation Application Contest</span>
+      <span class="aw-scope scope-nat">National</span>
+    </div>
+    <div class="aw-entry">
+      <span class="aw-yr">2025</span>
+      <span class="aw-dot silver"></span>
+      <span class="aw-text">Third Prize · National Undergraduate Mathematics Competition</span>
+      <span class="aw-scope scope-prov">Provincial</span>
+    </div>
+    <div class="aw-entry">
+      <span class="aw-yr">2024</span>
+      <span class="aw-dot silver"></span>
+      <span class="aw-text">Second Prize · National Undergraduate Mathematics Competition</span>
+      <span class="aw-scope scope-prov">Provincial</span>
+    </div>
+
+  </div>
 </section>
 
 <!-- ── Contact ── -->
-<section id="contact" class="page fade-in" style="border-bottom:none;">
-  <div class="sec-head">
-    <span class="sec-num">05</span>
-    <h2 class="sec-title">Contact</h2>
-    <div class="sec-rule"></div>
-  </div>
-  <div class="contact-layout">
-    <div>
-      <div class="contact-headline">
-        Let's build<br>something <em>worth&nbsp;publishing.</em>
+<section id="contact" class="sec fi">
+  <div class="outer">
+    <h2>Contact</h2>
+    <div class="contact-wrap">
+      <div>
+        <div class="contact-hed">Let's build something <em>worth publishing.</em></div>
+        <p class="contact-note">Currently a junior at SCUT, actively seeking research collaborations, internship opportunities, and open-source projects. Reach out through any of the channels below.</p>
       </div>
-      <div class="contact-note">
-        Currently a junior at SCUT, actively seeking research collaborations,
-        internship opportunities, and open-source projects. Reach out through
-        any of the channels below.
-      </div>
+      <ul class="c-list">
+        <li><span class="c-lbl">Personal</span><span class="c-val">new-tonaa@outlook.com</span></li>
+        <li><span class="c-lbl">School</span><span class="c-val">202330333682@mail.scut.edu.cn</span></li>
+        <li><span class="c-lbl">GitHub</span><span class="c-val"><a href="https://github.com/new-tonAA" target="_blank">github.com/new-tonAA</a></span></li>
+        <li><span class="c-lbl">LinkedIn</span><span class="c-val"><a href="https://www.linkedin.com/in/yuefei-zhang/" target="_blank">linkedin.com/in/yuefei-zhang</a></span></li>
+      </ul>
     </div>
-    <ul class="contact-entries">
-      <li>
-        <span class="c-label">Personal</span>
-        <span class="c-val">new-tonaa@outlook.com</span>
-      </li>
-      <li>
-        <span class="c-label">School</span>
-        <span class="c-val">202330333682@mail.scut.edu.cn</span>
-      </li>
-      <li>
-        <span class="c-label">GitHub</span>
-        <span class="c-val"><a href="https://github.com/new-tonAA" target="_blank">github.com/new-tonAA</a></span>
-      </li>
-      <li>
-        <span class="c-label">LinkedIn</span>
-        <span class="c-val"><a href="https://www.linkedin.com/in/yuefei-zhang/" target="_blank">linkedin.com/in/yuefei-zhang</a></span>
-      </li>
-    </ul>
   </div>
 </section>
 
 <footer>
   <div class="footer-inner">
-    <span class="footer-copy">© 2026 Yuefei Zhang · South China University of Technology</span>
+    <span class="footer-copy">© 2026 Yuefei Zhang · SCUT</span>
     <div class="footer-links">
       <a href="https://github.com/new-tonAA" target="_blank">GitHub</a>
       <a href="mailto:new-tonaa@outlook.com">Email</a>
@@ -986,16 +618,10 @@
 </footer>
 
 <script>
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        obs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.07 });
-
-  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
+  }, { threshold: 0.05 });
+  document.querySelectorAll('.fi').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
