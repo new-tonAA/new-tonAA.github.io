@@ -12,9 +12,9 @@
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      font-size: 15px;
+      font-size: 16.5px;
       font-weight: 400;
-      line-height: 1.65;
+      line-height: 1.7;
       color: #222;
       background: #fff;
     }
@@ -24,41 +24,42 @@
 
     /* ── Layout ── */
     .outer {
-      max-width: 720px;
+      max-width: 800px;
       margin: 0 auto;
-      padding: 0 28px;
+      padding: 0 32px;
     }
 
     /* ── Nav ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0;
-      background: rgba(255,255,255,0.96);
+      background: rgba(255,255,255,0.97);
       backdrop-filter: blur(4px);
       border-bottom: 1px solid #e8e8e8;
+      border-top: 3px solid #f5b800;
       z-index: 100;
     }
 
     .nav-inner {
-      max-width: 720px; margin: 0 auto; padding: 0 28px;
-      height: 44px;
+      width: 100%; padding: 0 40px;
+      height: 46px;
       display: flex; justify-content: space-between; align-items: center;
     }
 
     .nav-name {
-      font-size: 0.88rem; font-weight: 500; color: #222;
+      font-size: 0.95rem; font-weight: 600; color: #111;
       font-family: 'Lora', serif; font-style: italic;
     }
 
-    .nav-links { display: flex; gap: 22px; list-style: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
 
     .nav-links a {
-      font-size: 0.78rem; color: #666; transition: color 0.15s;
+      font-size: 0.82rem; color: #555; transition: color 0.15s;
     }
 
-    .nav-links a:hover { color: #222; text-decoration: none; }
+    .nav-links a:hover { color: #111; text-decoration: none; }
 
     /* ── Hero ── */
-    #hero { padding: 80px 0 40px; border-bottom: 1px solid #e8e8e8; }
+    #hero { padding: 90px 0 44px; border-bottom: 1px solid #e8e8e8; }
 
     .hero-top {
       display: flex; align-items: flex-start;
@@ -524,6 +525,7 @@
         <div class="entry-sub gray">B.Eng. Software Engineering · Minor in Business Administration</div>
         <div class="entry-meta"><span class="lbl">Research</span><span class="val"><span class="hi">Computer Vision</span>, <span class="hi">Visual Grounding</span></span></div>
         <div class="entry-meta"><span class="lbl">GPA</span><span class="val"><span class="hi">3.82 / 4.0</span></span> &nbsp;·&nbsp; <span class="lbl">IELTS</span><span class="val"><span class="hi">7.5</span></span></div>
+        <div class="entry-meta"><span class="lbl">Advisor</span><span class="val"><a href="https://zkdeng.org" target="_blank">Zikun Deng</a></span></div>
         <div class="entry-meta"><span class="lbl">Honors</span><span class="val">SCUT University Scholarship (2024, 2025)</span></div>
         <div class="entry-meta"><span class="lbl">Courses</span><span class="val">C++, Java, Operating System, Computer Architecture, Networks, Database, Software Testing, Computer Graphics, Machine Learning</span></div>
       </div>
@@ -564,7 +566,7 @@
         <div class="entry-title">Visual Department Developer Intern <span style="font-weight:400;color:#999;font-size:0.8rem">· EHang</span></div>
         <div class="entry-body">Developed features for QGroundControl (QGC), an open-source drone ground control station, using Ubuntu 22.04 and Qt for cross-platform compilation. Identified and fixed a bug merged into the official repository.</div>
         <div class="tags"><span class="tag hi">C++</span><span class="tag hi">Qt</span><span class="tag">Ubuntu 22.04</span><span class="tag">Cross-platform</span></div>
-        <a class="elink" href="https://github.com/mavlink/qgroundcontrol/pull/13209" target="_blank">View PR #13209</a>
+        <a class="elink" href="https://github.com/mavlink/qgroundcontrol/pull/13209" target="_blank"><svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor" style="vertical-align:-2px;margin-right:3px"><path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/></svg>View PR #13209</a>
       </div>
     </div>
 
@@ -583,7 +585,7 @@
           <span class="venue-detail">In Submission</span>
         </div>
         <div class="card-links">
-          [ <a href="#">PDF</a> ]
+          [ <svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor" style="vertical-align:-2px;margin-right:3px"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg><a href="#">PDF</a> ]
         </div>
       </div>
     </div>
@@ -601,8 +603,8 @@
           <span class="venue-detail">In Submission</span>
         </div>
         <div class="card-links">
-          [ <a href="https://arxiv.org/abs/2602.13214" target="_blank">PDF</a>
-          <span>|</span> <a href="https://arxiv.org/abs/2602.13214" target="_blank">arXiv</a> ]
+          [ <svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor" style="vertical-align:-2px;margin-right:3px"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg><a href="https://arxiv.org/abs/2602.13214" target="_blank">PDF</a>
+          <span>|</span> <svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor" style="vertical-align:-2px;margin-right:3px"><path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/></svg><a href="https://arxiv.org/abs/2602.13214" target="_blank">arXiv</a> ]
         </div>
       </div>
     </div>
