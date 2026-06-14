@@ -8,11 +8,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: 'Inter', -apple-system, sans-serif;
-      font-size: 18px; line-height: 1.7;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 18px; font-weight: 400; line-height: 1.7;
       color: #222; background: #fff;
     }
+
+    a { color: #2563b0; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Nav ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0;
       background: rgba(255,255,255,0.97);
@@ -40,19 +47,219 @@
     .nav-indicator {
       position: absolute; bottom: 0; left: 0;
       height: 3px; background: #f5b800;
-      transition: left 0.25s cubic-bezier(0.4,0,0.2,1), width 0.25s cubic-bezier(0.4,0,0.2,1);
+      transition: left .25s cubic-bezier(.4,0,.2,1), width .25s cubic-bezier(.4,0,.2,1);
       pointer-events: none;
     }
-    .outer { max-width: 800px; margin: 0 auto; padding: 0 32px; }
-    main { padding: 110px 0 80px; }
-    .placeholder {
-      text-align: center; padding: 80px 0; color: #aaa;
-      font-family: 'Lora', serif; font-style: italic;
-      font-size: 1.2rem;
+
+    /* ── Three-column wrapper ── */
+    .page-wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 80px 32px 80px;
+      display: grid;
+      grid-template-columns: 150px 1fr 160px;
+      gap: 0 40px;
+      align-items: start;
+    }
+
+    /* ── Left sidebar ── */
+    .sidebar {
+      position: sticky; top: 72px;
+      padding-top: 32px;
+    }
+    .sidebar-title {
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.13em; text-transform: uppercase;
+      color: #aaa; margin-bottom: 12px; text-align: right;
+    }
+    .sidebar-tags { display: flex; flex-direction: column; gap: 3px; text-align: right; }
+    .sidebar-tag {
+      font-size: 0.82rem; color: #888; line-height: 1.45;
+      padding: 2px 0; transition: color 0.15s;
+    }
+    .sidebar-tag.bold { font-weight: 600; color: #333; font-size: 0.88rem; }
+    .sidebar-tag:hover { color: #222; }
+
+    /* ── Main timeline ── */
+    .main { padding-top: 32px; }
+
+    /* section header */
+    .sec-head {
+      font-family: 'Lora', serif;
+      font-size: 1.1rem; font-weight: 600;
+      color: #111;
+      padding-bottom: 7px;
+      border-bottom: 1.5px solid #111;
+      margin-bottom: 0;
+      margin-top: 40px;
+    }
+    .sec-head:first-of-type { margin-top: 0; }
+
+    /* ── Timeline rail ── */
+    .tl {
+      position: relative;
+      padding-left: 28px;
+      margin-left: 6px;
+    }
+
+    /* vertical line */
+    .tl::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: #e0e0e0;
+    }
+
+    /* each item */
+    .tl-item {
+      position: relative;
+      padding: 18px 0 18px 20px;
+      border-bottom: 1px solid #f5f5f5;
+    }
+    .tl-item:last-child { border-bottom: none; }
+
+    /* dot on the line */
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -34px; top: 26px;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1.5px solid #aaa;
+    }
+    .tl-item.current::before {
+      background: #f5b800;
+      border-color: #f5b800;
+    }
+    .tl-item.paper::before {
+      background: #2563b0;
+      border-color: #2563b0;
+    }
+
+    /* date above content */
+    .tl-date {
+      font-size: 0.72rem; color: #aaa;
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 4px;
+      white-space: nowrap;
+    }
+
+    /* for items with thumbnail */
+    .tl-inner {
+      display: flex; gap: 18px; align-items: flex-start;
+    }
+
+    .tl-thumb {
+      flex-shrink: 0; width: 150px;
+    }
+    .tl-thumb img {
+      width: 150px; height: auto;
+      display: block;
+      border: 1px solid #e0e0e0;
+    }
+
+    .tl-body { flex: 1; min-width: 0; }
+
+    .tl-title {
+      font-size: 0.95rem; font-weight: 500;
+      color: #2563b0; line-height: 1.4;
+      margin-bottom: 4px;
+    }
+    .tl-title a { color: inherit; }
+    .tl-title a:hover { text-decoration: underline; }
+    .tl-title.dark { color: #111; }
+
+    .tl-sub {
+      font-size: 0.82rem; color: #888;
+      font-style: italic; margin-bottom: 4px;
+    }
+
+    .tl-authors {
+      font-size: 0.82rem; color: #666;
+      line-height: 1.65; margin-bottom: 6px;
+    }
+    .tl-authors .me {
+      font-weight: 700; color: #111;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .tl-desc {
+      font-size: 0.84rem; color: #555;
+      line-height: 1.75; margin-bottom: 7px;
+    }
+
+    .tl-venue-row {
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 5px; flex-wrap: wrap;
+    }
+    .venue-badge {
+      font-size: 0.68rem; font-weight: 600;
+      padding: 2px 7px; border-radius: 2px; white-space: nowrap;
+    }
+    .badge-blue  { background: #2563b0; color: #fff; }
+    .badge-green { background: #166534; color: #fff; }
+    .badge-amber { background: #b45309; color: #fff; }
+    .badge-gray  { background: #6b7280; color: #fff; }
+
+    .venue-full { font-size: 0.8rem; color: #666; font-style: italic; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 4px; margin: 6px 0; }
+    .tag {
+      font-size: 0.7rem; padding: 1px 7px;
+      border: 1px solid #ddd; color: #666; border-radius: 2px;
+    }
+    .tag.hi { border-color: #b91c1c; color: #b91c1c; }
+    .badge-now {
+      font-size: 0.68rem; padding: 2px 7px;
+      border: 1px solid #b91c1c; color: #b91c1c;
+      border-radius: 2px; white-space: nowrap;
+    }
+
+    .tl-links {
+      font-size: 0.8rem; color: #555;
+      display: flex; align-items: center; gap: 0;
+      margin-top: 5px;
+    }
+    .tl-links span { color: #ccc; margin: 0 6px; }
+    .tl-links a {
+      color: #2563b0;
+      display: inline-flex; align-items: center; gap: 4px;
+    }
+    .tl-links a svg { width: 12px; height: 12px; fill: currentColor; flex-shrink: 0; }
+    .tl-links a:hover { text-decoration: underline; }
+
+    /* ── Right: Collaborators ── */
+    .collabs {
+      position: sticky; top: 72px;
+      padding-top: 32px;
+    }
+    .collabs-title {
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.13em; text-transform: uppercase;
+      color: #aaa; margin-bottom: 12px;
+    }
+    .collab-name {
+      font-size: 0.82rem; color: #2563b0;
+      line-height: 1.9; display: block;
+    }
+    .collab-name:hover { text-decoration: underline; }
+    .collab-name.bold {
+      font-weight: 600; color: #111;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 860px) {
+      .page-wrap { grid-template-columns: 1fr; }
+      .sidebar, .collabs { position: static; }
+      nav { display: none; }
     }
   </style>
 </head>
 <body>
+
 <nav>
   <div class="nav-inner">
     <span class="nav-name">Yuefei Zhang</span>
@@ -63,17 +270,218 @@
     </ul>
   </div>
 </nav>
-<main>
-  <div class="outer">
-    <div class="placeholder">Coming soon — details page is under construction.</div>
-  </div>
-</main>
+
+<div class="page-wrap">
+
+  <!-- ── Left sidebar ── -->
+  <aside class="sidebar">
+    <div class="sidebar-title">Interests</div>
+    <div class="sidebar-tags">
+      <span class="sidebar-tag bold">Computer Vision</span>
+      <span class="sidebar-tag bold">Game Development</span>
+      <span class="sidebar-tag">Visual Grounding</span>
+      <span class="sidebar-tag">LLM Evaluation</span>
+      <span class="sidebar-tag">Back-end</span>
+      <span class="sidebar-tag">Unreal Engine</span>
+      <span class="sidebar-tag">Multimodal AI</span>
+    </div>
+  </aside>
+
+  <!-- ── Center: Timeline ── -->
+  <main class="main">
+
+    <!-- Research -->
+    <div class="sec-head">Research Highlights</div>
+    <div class="tl">
+
+      <div class="tl-item paper">
+        <div class="tl-date">Mar 2025 – Apr 2026</div>
+        <div class="tl-inner">
+          <div class="tl-thumb">
+            <img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/VGD.png" alt="">
+          </div>
+          <div class="tl-body">
+            <div class="tl-title">Show Me the Answer: Visual Grounding on Dashboards</div>
+            <div class="tl-authors"><span class="me">Yuefei Zhang</span>, Songyin Tang, Yile Cai, Yuqi Bu, Liuwu Li, Yi Cai, Zikun Deng*</div>
+            <div class="tl-venue-row">
+              <span class="venue-badge badge-green">ACM MM 2026</span>
+              <span class="venue-full">In Submission</span>
+            </div>
+            <div class="tl-links">[ <a href="#"><svg viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg>PDF</a> ]</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item paper">
+        <div class="tl-date">Nov 2025 – Jan 2026</div>
+        <div class="tl-inner">
+          <div class="tl-thumb">
+            <img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/BotzoneBench.jpg" alt="">
+          </div>
+          <div class="tl-body">
+            <div class="tl-title">BotzoneBench: Scalable LLM Evaluation via Graded AI Anchors</div>
+            <div class="tl-authors">Lingfeng Li, Yunlong Lu, <span class="me">Yuefei Zhang</span>, Jingyu Yao, Yixin Zhu, Keyuan Cheng, Yongyi Wang, Qirui Zheng, Xionghui Yang, Wenxin Li</div>
+            <div class="tl-venue-row">
+              <span class="venue-badge badge-green">NeurIPS 2026</span>
+              <span class="venue-full">In Submission</span>
+            </div>
+            <div class="tl-links">
+              [ <a href="https://arxiv.org/abs/2602.13214" target="_blank"><svg viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg>PDF</a>
+              <span>|</span>
+              <a href="https://arxiv.org/abs/2602.13214" target="_blank"><svg viewBox="0 0 24 24"><path d="M12.005 0L0 6.5v11L12.005 24 24 17.5v-11zm-1.424 17.403c-.55.34-1.177.497-1.874.497-.782 0-1.476-.198-2.08-.594-.428-.28-.788-.66-1.08-1.14l1.07-.772c.21.37.46.648.748.836.368.238.795.357 1.28.357.48 0 .856-.1 1.126-.302.27-.2.405-.476.405-.826 0-.28-.09-.508-.27-.687-.18-.18-.504-.34-.972-.48l-.774-.222c-.65-.185-1.13-.46-1.443-.826-.312-.365-.468-.81-.468-1.332 0-.46.116-.866.35-1.218.232-.352.56-.624.982-.818.42-.194.906-.29 1.456-.29.65 0 1.22.142 1.713.426.36.21.66.494.896.854l-1.024.718c-.166-.264-.374-.468-.624-.612-.316-.184-.676-.276-1.08-.276-.42 0-.752.095-.994.284-.242.19-.363.448-.363.775 0 .25.08.456.24.617.16.162.44.302.84.42l.788.228c.72.206 1.238.49 1.55.852.314.362.47.818.47 1.368 0 .49-.12.924-.36 1.302zm6.12.42h-1.31l-1.49-2.496-1.488 2.496h-1.29l2.1-3.444-1.968-3.222h1.302l1.362 2.28 1.362-2.28h1.29l-1.968 3.21z"/></svg>arXiv</a> ]
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /tl -->
+
+    <!-- Experience -->
+    <div class="sec-head">Experience</div>
+    <div class="tl">
+
+      <div class="tl-item current">
+        <div class="tl-date">Apr 2026 – Present</div>
+        <div class="tl-body">
+          <div class="tl-title dark">Game Client Developer Intern <span style="font-weight:400;color:#999;font-size:0.85rem">· Tencent IEG</span></div>
+          <div class="tl-desc">Working on developing game clients based on Unreal Engine 5 and creating a UGC project, mainly responsible for gameplay design and implementation.</div>
+          <div class="tags"><span class="tag hi">C++</span><span class="tag hi">TypeScript</span><span class="tag hi">Unreal Engine 5</span><span class="tag">Game Client</span></div>
+          <div style="margin-top:6px;"><span class="badge-now">Current</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">Jun 2025 – Aug 2025</div>
+        <div class="tl-body">
+          <div class="tl-title dark">Visual Department Developer Intern <span style="font-weight:400;color:#999;font-size:0.85rem">· EHang</span></div>
+          <div class="tl-desc">Developed features for QGroundControl (QGC), an open-source drone ground control station, using Ubuntu 22.04 and Qt for cross-platform compilation. Identified and fixed a bug merged into the official repository.</div>
+          <div class="tags"><span class="tag hi">C++</span><span class="tag hi">Qt</span><span class="tag">Ubuntu 22.04</span><span class="tag">Cross-platform</span></div>
+          <div class="tl-links" style="margin-top:6px;">
+            <a href="https://github.com/mavlink/qgroundcontrol/pull/13209" target="_blank">
+              <svg viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/></svg>
+              View PR #13209
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /tl -->
+
+    <!-- Projects -->
+    <div class="sec-head">Projects</div>
+    <div class="tl">
+
+      <div class="tl-item">
+        <div class="tl-date">May – Jun 2026</div>
+        <div class="tl-inner">
+          <div class="tl-thumb">
+            <img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/DesignTree.jpg" alt="">
+          </div>
+          <div class="tl-body">
+            <div class="tl-title"><a href="https://github.com/new-tonAA/DesignTree" target="_blank">DesignTree Agent</a></div>
+            <div class="tl-desc">AI-powered architectural design studio with visual design tree management. The agent automatically learns style preferences from selected images and generates coherent architectural concepts.</div>
+            <div class="tags"><span class="tag hi">Python</span><span class="tag">Agent</span><span class="tag">Image Generation</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">Mar – Apr 2026</div>
+        <div class="tl-inner">
+          <div class="tl-thumb">
+            <img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/TestingAgent.png" alt="">
+          </div>
+          <div class="tl-body">
+            <div class="tl-title"><a href="https://github.com/new-tonAA/stupid_agent" target="_blank">Software Testing Agent</a></div>
+            <div class="tl-desc">End-to-end testing agent for C-based projects (e.g., SQLite3) with a collaborative pipeline for environment setup, static analysis, planning, execution, and refinement. Features iterative self-healing and dual-platform LLM integration.</div>
+            <div class="tags"><span class="tag hi">Python</span><span class="tag">Agent</span><span class="tag">LLM</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">Oct – Nov 2025</div>
+        <div class="tl-inner">
+          <div class="tl-thumb">
+            <img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/ResidentRun.png" alt="">
+          </div>
+          <div class="tl-body">
+            <div class="tl-title"><a href="https://github.com/new-tonAA/ResidentRun-UE5Game" target="_blank">ResidentRun</a></div>
+            <div class="tl-desc">Intense 3D action-escape game built on UE5. Features sophisticated AI hunters, a "Bullet Time" mechanic for strategic escapes, and high-fidelity environmental rendering.</div>
+            <div class="tags"><span class="tag hi">UE5</span><span class="tag">C++</span><span class="tag">Blueprint</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">Jun – Sep 2025</div>
+        <div class="tl-inner">
+          <div class="tl-thumb">
+            <img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/TOTOTO.jpg" alt="">
+          </div>
+          <div class="tl-body">
+            <div class="tl-title"><a href="https://github.com/new-tonAA/TOtoTO" target="_blank">TOtoTO — Campus Image Search</a></div>
+            <div class="tl-desc">Intelligent tour guide platform for SCUT integrating computer vision and location services. Faiss-based semantic image retrieval, real-time map localization, and AI-generated cultural introductions. Built with Vue 3, Flask, and MySQL.</div>
+            <div class="tags"><span class="tag hi">Vue 3</span><span class="tag hi">Python</span><span class="tag">Faiss</span><span class="tag">Vector Search</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /tl -->
+
+    <!-- Education -->
+    <div class="sec-head">Education</div>
+    <div class="tl">
+
+      <div class="tl-item">
+        <div class="tl-date">Sep 2023 – Jun 2027</div>
+        <div class="tl-body">
+          <div class="tl-title dark">South China University of Technology</div>
+          <div class="tl-sub">B.Eng. Software Engineering · Minor in Business Administration</div>
+          <div class="tl-desc" style="margin-top:4px;">
+            GPA <strong>3.82 / 4.0</strong> &nbsp;·&nbsp; IELTS <strong>7.5</strong><br>
+            Advisor: <a href="https://zkdeng.org" target="_blank">Zikun Deng</a><br>
+            SCUT University Scholarship (2024, 2025)
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">Aug 2020 – Jun 2023</div>
+        <div class="tl-body">
+          <div class="tl-title dark">The Affiliated High School of SCNU</div>
+          <div class="tl-sub">High School Diploma · Science Track</div>
+        </div>
+      </div>
+
+    </div><!-- /tl -->
+
+  </main>
+
+  <!-- ── Right: Collaborators ── -->
+  <aside class="collabs">
+    <div class="collabs-title">Collaborators</div>
+    <a class="collab-name bold" href="https://zkdeng.org" target="_blank">Zikun Deng</a>
+    <a class="collab-name" href="#" target="_blank">Songyin Tang</a>
+    <a class="collab-name" href="#" target="_blank">Yile Cai</a>
+    <a class="collab-name" href="#" target="_blank">Yuqi Bu</a>
+    <a class="collab-name" href="#" target="_blank">Liuwu Li</a>
+    <a class="collab-name" href="#" target="_blank">Yi Cai</a>
+    <a class="collab-name" href="#" target="_blank">Lingfeng Li</a>
+    <a class="collab-name" href="#" target="_blank">Yunlong Lu</a>
+    <a class="collab-name" href="#" target="_blank">Jingyu Yao</a>
+    <a class="collab-name" href="#" target="_blank">Yixin Zhu</a>
+    <a class="collab-name" href="#" target="_blank">Wenxin Li</a>
+  </aside>
+
+</div>
+
 <script>
   function moveIndicator(link) {
     const ind = document.getElementById('navIndicator');
     const ul  = document.getElementById('navLinks');
-    const ulRect = ul.getBoundingClientRect();
     const rect = link.getBoundingClientRect();
+    const ulRect = ul.getBoundingClientRect();
     ind.style.left  = (rect.left - ulRect.left) + 'px';
     ind.style.width = rect.width + 'px';
   }
