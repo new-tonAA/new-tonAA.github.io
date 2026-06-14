@@ -79,9 +79,8 @@
     h1 {
       font-family: 'Lora', serif;
       font-size: 1.55rem; font-weight: 600;
-      line-height: 1.15; margin-bottom: 4px;
+      line-height: 1.25; margin-bottom: 4px;
       color: #111;
-      display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
     }
 
     h1 .name-hl {
@@ -159,7 +158,7 @@
     /* ── Entry rows (shared by edu / exp / proj) ── */
     .entry {
       display: grid;
-      grid-template-columns: 110px 1fr;
+      grid-template-columns: 130px 1fr;
       gap: 0 20px;
       padding: 12px 0;
       border-bottom: 1px solid #f0f0f0;
@@ -171,6 +170,7 @@
       font-size: 0.75rem; color: #999;
       padding-top: 2px; line-height: 1.5;
       font-variant-numeric: tabular-nums;
+      white-space: nowrap;
     }
 
     .entry-title {
@@ -226,6 +226,103 @@
 
     .badge-paper { border-color: #166534; color: #166534; background: #f0fdf4; }
     .badge-now   { border-color: #b91c1c; color: #b91c1c; background: #fff5f5; }
+
+    /* ── Paper / Project card (Zikun Deng style) ── */
+    .card-entry {
+      display: flex;
+      gap: 22px;
+      padding: 18px 0;
+      border-bottom: 1px solid #f0f0f0;
+      align-items: flex-start;
+    }
+
+    .card-entry:last-child { border-bottom: none; }
+
+    .card-left {
+      flex-shrink: 0;
+      width: 160px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .card-date {
+      font-size: 0.72rem; color: #999;
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .card-thumb {
+      width: 160px; height: 106px;
+      object-fit: cover; object-position: top center;
+      border: 1px solid #e0e0e0;
+      display: block;
+      background: #f5f5f5;
+    }
+
+    .card-right { flex: 1; min-width: 0; }
+
+    .card-title {
+      font-size: 0.95rem; font-weight: 500;
+      color: #2563b0; line-height: 1.4;
+      margin-bottom: 5px;
+      cursor: default;
+    }
+
+    .card-title a {
+      color: #2563b0; text-decoration: none;
+    }
+
+    .card-title a:hover { text-decoration: underline; }
+
+    .paper-authors {
+      font-size: 0.82rem; color: #555;
+      line-height: 1.65; margin-bottom: 7px;
+    }
+
+    .paper-authors .me {
+      font-weight: 700; color: #111;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .card-venue {
+      margin-bottom: 6px;
+    }
+
+    .venue-badge {
+      display: inline-block;
+      font-size: 0.68rem; font-weight: 600;
+      padding: 1px 6px; border-radius: 2px;
+      margin-right: 6px; vertical-align: middle;
+    }
+
+    .venue-badge.conf { background: #2563b0; color: #fff; }
+    .venue-badge.sub  { background: #166534; color: #fff; }
+
+    .venue-detail {
+      font-size: 0.78rem; color: #555;
+      font-style: italic;
+    }
+
+    .card-links {
+      font-size: 0.8rem; color: #555;
+      display: flex; gap: 0; flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .card-links span { color: #bbb; margin: 0 4px; }
+
+    .card-links a {
+      color: #2563b0; display: inline-flex; align-items: center; gap: 3px;
+    }
+
+    .card-links a:hover { text-decoration: underline; }
+
+    .card-body {
+      font-size: 0.84rem; color: #555;
+      line-height: 1.75; margin-bottom: 8px;
+    }
 
     /* ext link */
     .elink {
@@ -377,9 +474,7 @@
            src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/personal.jpg"
            alt="Yuefei Zhang">
       <div class="hero-info">
-        <h1>
-          <span style="font-weight:400;color:#444">Hi! I'm</span> <span class="name-hl">Yuefei Zhang</span><span class="cn">（张悦菲）</span>
-        </h1>
+        <h1>Hi! I'm <span class="name-hl">Yuefei Zhang</span><span class="cn">（张悦菲）</span></h1>
         <div class="hero-affil">
           <span class="org">Software Engineering</span> @ South China University of Technology<br>
           <span class="org">Game Client Development</span> @ Tencent IEG
@@ -423,7 +518,7 @@
     <h2>Education</h2>
 
     <div class="entry">
-      <div class="entry-date">Sep 2023 –<br>Jun 2027</div>
+      <div class="entry-date">Sep 2023 – Jun 2027</div>
       <div>
         <div class="entry-title">South China University of Technology</div>
         <div class="entry-sub gray">B.Eng. Software Engineering · Minor in Business Administration</div>
@@ -435,7 +530,7 @@
     </div>
 
     <div class="entry">
-      <div class="entry-date">Aug 2020 –<br>Jun 2023</div>
+      <div class="entry-date">Aug 2020 – Jun 2023</div>
       <div>
         <div class="entry-title">The Affiliated High School of SCNU</div>
         <div class="entry-sub gray">High School Diploma · Science Track</div>
@@ -454,7 +549,7 @@
     <div class="subhead">Internship</div>
 
     <div class="entry">
-      <div class="entry-date">Apr 2026 –<br>Present</div>
+      <div class="entry-date">Apr 2026 – Present</div>
       <div>
         <div class="entry-title">Game Client Developer Intern <span style="font-weight:400;color:#999;font-size:0.8rem">· Tencent IEG</span></div>
         <div class="entry-body">Working on developing game clients based on Unreal Engine 5 and creating a UGC project, mainly responsible for gameplay design and implementation.</div>
@@ -464,7 +559,7 @@
     </div>
 
     <div class="entry">
-      <div class="entry-date">Jun 2025 –<br>Aug 2025</div>
+      <div class="entry-date">Jun 2025 – Aug 2025</div>
       <div>
         <div class="entry-title">Visual Department Developer Intern <span style="font-weight:400;color:#999;font-size:0.8rem">· EHang</span></div>
         <div class="entry-body">Developed features for QGroundControl (QGC), an open-source drone ground control station, using Ubuntu 22.04 and Qt for cross-platform compilation. Identified and fixed a bug merged into the official repository.</div>
@@ -475,24 +570,42 @@
 
     <div class="subhead">Research</div>
 
-    <div class="entry">
-      <div class="entry-date">Mar 2025 –<br>Apr 2026</div>
-      <div>
-        <div class="entry-title">Show Me the Answer: Visual Grounding on Dashboard</div>
-        <div class="entry-sub">First Author</div>
-        <div class="entry-body">Lead research on visual grounding applied to dashboard environments. Proposes a novel benchmark and method for locating answer regions within complex analytical interfaces.</div>
-        <div class="badges"><span class="badge badge-paper">ACM MM 2026 · In Submission</span></div>
+    <div class="card-entry">
+      <div class="card-left">
+        <div class="card-date">Mar 2025 – Apr 2026</div>
+        <img class="card-thumb" src="./image/paper1.jpg" alt="paper thumbnail"
+             onerror="this.src='https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/personal.jpg'">
+      </div>
+      <div class="card-right">
+        <div class="card-title">Show Me the Answer: Visual Grounding on Dashboards</div>
+        <div class="paper-authors"><span class="me">Yuefei Zhang</span>, Songyin Tang, Yile Cai, Yuqi Bu, Liuwu Li, Yi Cai, Zikun Deng</div>
+        <div class="card-venue">
+          <span class="venue-badge sub">ACM MM 2026</span>
+          <span class="venue-detail">In Submission</span>
+        </div>
+        <div class="card-links">
+          [ <a href="#">PDF</a> ]
+        </div>
       </div>
     </div>
 
-    <div class="entry">
-      <div class="entry-date">Nov 2025 –<br>Jan 2026</div>
-      <div>
-        <div class="entry-title">BotzoneBench: Scalable LLM Evaluation via Graded AI Anchors</div>
-        <div class="entry-sub">Third Author</div>
-        <div class="entry-body">Contributed to a scalable LLM evaluation framework using graded AI anchor systems for systematic, cost-effective model assessment.</div>
-        <div class="badges"><span class="badge badge-paper">NeurIPS 2026 · In Submission</span></div>
-        <a class="elink" href="https://arxiv.org/abs/2602.13214" target="_blank">arXiv preprint</a>
+    <div class="card-entry">
+      <div class="card-left">
+        <div class="card-date">Nov 2025 – Jan 2026</div>
+        <img class="card-thumb" src="./image/paper2.jpg" alt="paper thumbnail"
+             onerror="this.src='https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/personal.jpg'">
+      </div>
+      <div class="card-right">
+        <div class="card-title">BotzoneBench: Scalable LLM Evaluation via Graded AI Anchors</div>
+        <div class="paper-authors">Lingfeng Li, Yunlong Lu, <span class="me">Yuefei Zhang</span>, Jingyu Yao, Yixin Zhu, Keyuan Cheng, Yongyi Wang, Qirui Zheng, Xionghui Yang, Wenxin Li</div>
+        <div class="card-venue">
+          <span class="venue-badge sub">NeurIPS 2026</span>
+          <span class="venue-detail">In Submission</span>
+        </div>
+        <div class="card-links">
+          [ <a href="https://arxiv.org/abs/2602.13214" target="_blank">PDF</a>
+          <span>|</span> <a href="https://arxiv.org/abs/2602.13214" target="_blank">arXiv</a> ]
+        </div>
       </div>
     </div>
 
@@ -504,43 +617,55 @@
   <div class="outer">
     <h2>Projects</h2>
 
-    <div class="entry">
-      <div class="entry-date">May – Jun 2026</div>
-      <div>
-        <div class="entry-title">DesignTree Agent</div>
-        <div class="entry-body">AI-powered architectural design studio with visual design tree management. The agent automatically learns style preferences from selected images and generates coherent architectural concepts.</div>
+    <div class="card-entry">
+      <div class="card-left">
+        <div class="card-date">May – Jun 2026</div>
+        <img class="card-thumb" src="./image/proj_designtree.jpg" alt="" onerror="this.src='https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/personal.jpg'">
+      </div>
+      <div class="card-right">
+        <div class="card-title">DesignTree Agent</div>
+        <div class="card-body">AI-powered architectural design studio with visual design tree management. The agent automatically learns style preferences from selected images and generates coherent architectural concepts.</div>
         <div class="tags"><span class="tag hi">Python</span><span class="tag">Agent</span><span class="tag">Image Generation</span></div>
-        <a class="elink" href="https://github.com/new-tonAA/DesignTree" target="_blank">GitHub</a>
+        <div class="card-links" style="margin-top:6px;">[ <a href="https://github.com/new-tonAA/DesignTree" target="_blank">GitHub</a> ]</div>
       </div>
     </div>
 
-    <div class="entry">
-      <div class="entry-date">Mar – Apr 2026</div>
-      <div>
-        <div class="entry-title">Software Testing Agent</div>
-        <div class="entry-body">End-to-end testing agent for C-based projects (e.g., SQLite3) with a collaborative pipeline for environment setup, static analysis, planning, execution, and refinement. Features iterative self-healing and dual-platform LLM integration.</div>
+    <div class="card-entry">
+      <div class="card-left">
+        <div class="card-date">Mar – Apr 2026</div>
+        <img class="card-thumb" src="./image/proj_agent.jpg" alt="" onerror="this.src='https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/personal.jpg'">
+      </div>
+      <div class="card-right">
+        <div class="card-title">Software Testing Agent</div>
+        <div class="card-body">End-to-end testing agent for C-based projects (e.g., SQLite3) with a collaborative pipeline for environment setup, static analysis, planning, execution, and refinement. Features iterative self-healing and dual-platform LLM integration.</div>
         <div class="tags"><span class="tag hi">Python</span><span class="tag">Agent</span><span class="tag">LLM</span></div>
-        <a class="elink" href="https://github.com/new-tonAA/stupid_agent" target="_blank">GitHub</a>
+        <div class="card-links" style="margin-top:6px;">[ <a href="https://github.com/new-tonAA/stupid_agent" target="_blank">GitHub</a> ]</div>
       </div>
     </div>
 
-    <div class="entry">
-      <div class="entry-date">Oct – Nov 2025</div>
-      <div>
-        <div class="entry-title">ResidentRun</div>
-        <div class="entry-body">Intense 3D action-escape game built on UE5. Features sophisticated AI hunters, a "Bullet Time" mechanic for strategic escapes, and high-fidelity environmental rendering in an infinite atmospheric facility.</div>
+    <div class="card-entry">
+      <div class="card-left">
+        <div class="card-date">Oct – Nov 2025</div>
+        <img class="card-thumb" src="./image/proj_residentrun.jpg" alt="" onerror="this.src='https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/personal.jpg'">
+      </div>
+      <div class="card-right">
+        <div class="card-title">ResidentRun</div>
+        <div class="card-body">Intense 3D action-escape game built on UE5. Features sophisticated AI hunters, a "Bullet Time" mechanic for strategic escapes, and high-fidelity environmental rendering in an infinite atmospheric facility.</div>
         <div class="tags"><span class="tag hi">UE5</span><span class="tag">C++</span><span class="tag">Blueprint</span></div>
-        <a class="elink" href="https://github.com/new-tonAA/ResidentRun-UE5Game" target="_blank">GitHub</a>
+        <div class="card-links" style="margin-top:6px;">[ <a href="https://github.com/new-tonAA/ResidentRun-UE5Game" target="_blank">GitHub</a> ]</div>
       </div>
     </div>
 
-    <div class="entry">
-      <div class="entry-date">Jun – Sep 2025</div>
-      <div>
-        <div class="entry-title">TOtoTO — Campus Image Search</div>
-        <div class="entry-body">Intelligent tour guide platform for SCUT integrating computer vision and location services. Faiss-based semantic image retrieval, real-time map localization, and AI-generated cultural introductions via LLM. Built with Vue 3, Flask, and MySQL.</div>
+    <div class="card-entry">
+      <div class="card-left">
+        <div class="card-date">Jun – Sep 2025</div>
+        <img class="card-thumb" src="./image/proj_tototo.jpg" alt="" onerror="this.src='https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/personal.jpg'">
+      </div>
+      <div class="card-right">
+        <div class="card-title">TOtoTO — Campus Image Search</div>
+        <div class="card-body">Intelligent tour guide platform for SCUT integrating computer vision and location services. Faiss-based semantic image retrieval, real-time map localization, and AI-generated cultural introductions via LLM. Built with Vue 3, Flask, and MySQL.</div>
         <div class="tags"><span class="tag hi">Vue 3</span><span class="tag hi">Python</span><span class="tag">Faiss</span><span class="tag">Vector Search</span></div>
-        <a class="elink" href="https://github.com/new-tonAA/TOtoTO" target="_blank">GitHub</a>
+        <div class="card-links" style="margin-top:6px;">[ <a href="https://github.com/new-tonAA/TOtoTO" target="_blank">GitHub</a> ]</div>
       </div>
     </div>
 
