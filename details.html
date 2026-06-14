@@ -60,6 +60,7 @@
       grid-template-columns: 150px 1fr 160px;
       gap: 0 40px;
       align-items: start;
+      position: relative;
     }
 
     /* ── Left sidebar ── */
@@ -79,21 +80,27 @@
     }
     .sidebar-tag.bold { font-weight: 600; color: #333; font-size: 0.88rem; }
     .sidebar-tag:hover { color: #222; }
+    .sidebar-tag[data-id] { cursor: pointer; }
+    .sidebar-tag[data-id]:hover { color: #2563b0; }
+    .sidebar-tag.highlighted {
+      color: #2563b0; font-weight: 600;
+    }
+    .sidebar-count {
+      font-size: 0.68rem; color: #bbb;
+      margin-left: 4px; font-weight: 400;
+    }
 
     /* ── Main timeline ── */
-    .main { padding-top: 32px; }
+    .main { padding-top: 32px; position: relative; }
 
-    /* section header */
-    .sec-head {
+    .page-title {
       font-family: 'Lora', serif;
       font-size: 1.1rem; font-weight: 600;
       color: #111;
       padding-bottom: 7px;
       border-bottom: 1.5px solid #111;
-      margin-bottom: 0;
-      margin-top: 40px;
+      margin-bottom: 24px;
     }
-    .sec-head:first-of-type { margin-top: 0; }
 
     /* ── Timeline rail ── */
     .tl {
@@ -102,7 +109,6 @@
       margin-left: 6px;
     }
 
-    /* vertical line */
     .tl::before {
       content: '';
       position: absolute;
@@ -111,15 +117,18 @@
       background: #e0e0e0;
     }
 
-    /* each item */
+    /* each item — base style */
     .tl-item {
       position: relative;
-      padding: 18px 0 18px 20px;
-      border-bottom: 1px solid #f5f5f5;
+      padding: 18px 10px 18px 20px;
+      border-radius: 4px;
+      transition: background-color 0.2s ease, box-shadow 0.2s ease;
+      cursor: default;
+      border-bottom: 1px solid transparent;
     }
     .tl-item:last-child { border-bottom: none; }
 
-    /* dot on the line */
+    /* dot on the line — all neutral */
     .tl-item::before {
       content: '';
       position: absolute;
@@ -127,15 +136,30 @@
       width: 9px; height: 9px;
       border-radius: 50%;
       background: #fff;
-      border: 1.5px solid #aaa;
+      border: 1.5px solid #ccc;
+      transition: border-color 0.2s ease, background 0.2s ease;
     }
+
+    /* current gold dot */
     .tl-item.current::before {
       background: #f5b800;
       border-color: #f5b800;
     }
-    .tl-item.paper::before {
-      background: #2563b0;
+
+    /* hover highlight on dot */
+    .tl-item:hover::before {
       border-color: #2563b0;
+      background: #2563b0;
+    }
+    .tl-item.current:hover::before {
+      background: #f5b800;
+      border-color: #f5b800;
+    }
+
+    /* hover highlight on row */
+    .tl-item:hover, .tl-item.hovered {
+      background-color: #f0f7ff;
+      box-shadow: 0 1px 6px rgba(37,99,176,0.08);
     }
 
     /* date above content */
@@ -144,13 +168,26 @@
       font-variant-numeric: tabular-nums;
       margin-bottom: 4px;
       white-space: nowrap;
+      display: flex; align-items: center; gap: 8px;
     }
 
-    /* for items with thumbnail */
+    /* category label */
+    .cat-label {
+      font-size: 0.62rem; font-weight: 600;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      padding: 1px 6px; border-radius: 2px;
+      white-space: nowrap;
+    }
+    .cat-research { background: #dbeafe; color: #1d4ed8; }
+    .cat-exp    { background: #ffedd5; color: #c2410c; }
+    .cat-project { background: #dcfce7; color: #15803d; }
+    .cat-edu    { background: #ede9fe; color: #6d28d9; }
+    .cat-award   { background: #fef3c7; color: #b45309; }
+
+    /* thumbnail items */
     .tl-inner {
       display: flex; gap: 18px; align-items: flex-start;
     }
-
     .tl-thumb {
       flex-shrink: 0; width: 150px;
     }
@@ -159,7 +196,6 @@
       display: block;
       border: 1px solid #e0e0e0;
     }
-
     .tl-body { flex: 1; min-width: 0; }
 
     .tl-title {
@@ -206,6 +242,16 @@
 
     .venue-full { font-size: 0.8rem; color: #666; font-style: italic; }
 
+    /* award scope tag */
+    .aw-scope {
+      font-size: 0.68rem; padding: 1px 6px;
+      border: 1px solid; white-space: nowrap; border-radius: 2px;
+      vertical-align: middle;
+    }
+    .scope-int  { border-color: #b91c1c; color: #b91c1c; }
+    .scope-nat  { border-color: #b45309; color: #b45309; }
+    .scope-prov { border-color: #1d4ed8; color: #1d4ed8; }
+
     .tags { display: flex; flex-wrap: wrap; gap: 4px; margin: 6px 0; }
     .tag {
       font-size: 0.7rem; padding: 1px 7px;
@@ -231,6 +277,28 @@
     .tl-links a svg { width: 12px; height: 12px; fill: currentColor; flex-shrink: 0; }
     .tl-links a:hover { text-decoration: underline; }
 
+    /* ── SVG Connection Lines Overlay ── */
+    .conn-svg-layer {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 2;
+      overflow: visible;
+    }
+    .conn-path {
+      fill: none;
+      stroke: #d4dce6;
+      stroke-width: 1;
+      opacity: 0.45;
+      transition: stroke 0.25s ease, stroke-width 0.25s ease, opacity 0.25s ease;
+    }
+    .conn-path.highlighted {
+      stroke: #2563b0;
+      stroke-width: 1.8;
+      opacity: 0.85;
+    }
+
     /* ── Right: Collaborators ── */
     .collabs {
       position: sticky; top: 72px;
@@ -242,19 +310,30 @@
       color: #aaa; margin-bottom: 12px;
     }
     .collab-name {
-      font-size: 0.82rem; color: #2563b0;
+      font-size: 0.82rem; color: #888;
       line-height: 1.9; display: block;
+      transition: color 0.2s ease, font-weight 0.2s ease;
+      text-decoration: none !important;
+      cursor: default;
     }
-    .collab-name:hover { text-decoration: underline; }
     .collab-name.bold {
-      font-weight: 600; color: #111;
+      font-weight: 600; color: #333;
       font-size: 0.88rem;
+    }
+    .collab-name.highlighted {
+      color: #2563b0;
+      font-weight: 600;
+    }
+    .collab-name.linkable:hover {
+      text-decoration: underline !important;
+      color: #2563b0;
     }
 
     @media (max-width: 860px) {
       .page-wrap { grid-template-columns: 1fr; }
       .sidebar, .collabs { position: static; }
       nav { display: none; }
+      .conn-svg-layer { display: none; }
     }
   </style>
 </head>
@@ -277,29 +356,86 @@
   <aside class="sidebar">
     <div class="sidebar-title">Interests</div>
     <div class="sidebar-tags">
-      <span class="sidebar-tag bold">Computer Vision</span>
-      <span class="sidebar-tag bold">Game Development</span>
-      <span class="sidebar-tag">Visual Grounding</span>
-      <span class="sidebar-tag">LLM Evaluation</span>
-      <span class="sidebar-tag">Back-end</span>
-      <span class="sidebar-tag">Unreal Engine</span>
-      <span class="sidebar-tag">Multimodal AI</span>
+      <span class="sidebar-tag" data-id="visual-grounding">Visual Grounding</span>
+      <span class="sidebar-tag" data-id="game-dev">Game Development</span>
+      <span class="sidebar-tag" data-id="llm-eval">LLM Evaluation</span>
+      <span class="sidebar-tag" data-id="ai-agents">AI Agents</span>
+      <span class="sidebar-tag" data-id="unreal-engine">Unreal Engine</span>
+      <span class="sidebar-tag" data-id="sw-testing">Software Testing</span>
+      <span class="sidebar-tag" data-id="cv">Computer Vision</span>
+      <span class="sidebar-tag" data-id="cross-platform">Cross-platform Dev</span>
+      <span class="sidebar-tag" data-id="math-modeling">Mathematical Modeling</span>
+      <span class="sidebar-tag" data-id="hardware">Hardware</span>
+      <span class="sidebar-tag" data-id="sensors">Sensors</span>
+      <span class="sidebar-tag" data-id="software-engineering">Software Engineering</span>
+      <span class="sidebar-tag" data-id="mathematics">Mathematics</span>
     </div>
   </aside>
 
-  <!-- ── Center: Timeline ── -->
+  <!-- SVG layer for connections — sits inside page-wrap, not main -->
+  <svg class="conn-svg-layer" id="connSvg"></svg>
+
+  <!-- ── Center: Mixed Timeline (sorted by start date, newest first) ── -->
   <main class="main">
 
-    <!-- Research -->
-    <div class="sec-head">Research Highlights</div>
-    <div class="tl">
+    <div class="page-title">Timeline</div>
+    <div class="tl" id="timeline">
 
-      <div class="tl-item paper">
-        <div class="tl-date">Mar 2025 – Apr 2026</div>
+      <!-- 1. Tencent · Apr 2026 – Present -->
+      <div class="tl-item current exp" data-collabs="" data-interests="game-dev,unreal-engine">
+        <div class="tl-date">Apr 2026 – Present <span class="cat-label cat-exp">Experience</span></div>
+        <div class="tl-body">
+          <div class="tl-title dark">Game Client Developer Intern <span style="font-weight:400;color:#999;font-size:0.85rem">· Tencent IEG</span></div>
+          <div class="tl-desc">Working on developing game clients based on Unreal Engine 5 and creating a UGC project, mainly responsible for gameplay design and implementation.</div>
+          <div class="tags"><span class="tag hi">C++</span><span class="tag hi">TypeScript</span><span class="tag hi">Unreal Engine 5</span><span class="tag">Game Client</span></div>
+          <div style="margin-top:6px;"><span class="badge-now">Current</span></div>
+        </div>
+      </div>
+
+      <!-- 2. DesignTree · May – Jun 2026 -->
+      <div class="tl-item project" data-collabs="" data-interests="ai-agents">
+        <div class="tl-date">May – Jun 2026 <span class="cat-label cat-project">Project</span></div>
         <div class="tl-inner">
-          <div class="tl-thumb">
-            <img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/VGD.png" alt="">
+          <div class="tl-thumb"><img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/DesignTree.jpg" alt=""></div>
+          <div class="tl-body">
+            <div class="tl-title"><a href="https://github.com/new-tonAA/DesignTree" target="_blank">DesignTree Agent</a></div>
+            <div class="tl-desc">AI-powered architectural design studio with visual design tree management. The agent automatically learns style preferences from selected images and generates coherent architectural concepts.</div>
+            <div class="tags"><span class="tag hi">Python</span><span class="tag">Agent</span><span class="tag">Image Generation</span></div>
           </div>
+        </div>
+      </div>
+
+      <!-- 3. Testing Agent · Mar – Apr 2026 -->
+      <div class="tl-item project" data-collabs="" data-interests="sw-testing,ai-agents">
+        <div class="tl-date">Mar – Apr 2026 <span class="cat-label cat-project">Project</span></div>
+        <div class="tl-inner">
+          <div class="tl-thumb"><img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/TestingAgent.png" alt=""></div>
+          <div class="tl-body">
+            <div class="tl-title"><a href="https://github.com/new-tonAA/stupid_agent" target="_blank">Software Testing Agent</a></div>
+            <div class="tl-desc">End-to-end testing agent for C-based projects (e.g., SQLite3) with a collaborative pipeline for environment setup, static analysis, planning, execution, and refinement. Features iterative self-healing and dual-platform LLM integration.</div>
+            <div class="tags"><span class="tag hi">Python</span><span class="tag">Agent</span><span class="tag">LLM</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. MCM 2026 · Feb 2026 -->
+      <div class="tl-item award" data-collabs="zijin-tu,junxi-guo" data-interests="math-modeling">
+        <div class="tl-date">Feb 2026 <span class="cat-label cat-award">Award</span></div>
+        <div class="tl-body">
+          <div class="tl-title dark">Meritorious Winner · Mathematical Contest in Modeling (MCM)</div>
+          <div class="tl-authors">Zijin Tu, Junxi Guo, <span class="me">Yuefei Zhang</span></div>
+          <div class="tl-venue-row">
+            <span class="aw-scope scope-int">International</span>
+            <span class="venue-badge badge-blue">Programmer</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. VGD Paper · Mar 2025 – Apr 2026 -->
+      <div class="tl-item paper" data-collabs="songyin-tang,yile-cai,yuqi-bu,liuwu-li,yi-cai,zikun-deng" data-interests="visual-grounding,cv">
+        <div class="tl-date">Mar 2025 – Apr 2026 <span class="cat-label cat-research">Research</span></div>
+        <div class="tl-inner">
+          <div class="tl-thumb"><img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/VGD.png" alt=""></div>
           <div class="tl-body">
             <div class="tl-title">Show Me the Answer: Visual Grounding on Dashboards</div>
             <div class="tl-authors"><span class="me">Yuefei Zhang</span>, Songyin Tang, Yile Cai, Yuqi Bu, Liuwu Li, Yi Cai, Zikun Deng*</div>
@@ -312,12 +448,11 @@
         </div>
       </div>
 
-      <div class="tl-item paper">
-        <div class="tl-date">Nov 2025 – Jan 2026</div>
+      <!-- 6. BotzoneBench · Nov 2025 – Jan 2026 -->
+      <div class="tl-item paper" data-collabs="lingfeng-li,yunlong-lu,jingyu-yao,yixin-zhu,keyuan-cheng,yongyi-wang,qirui-zheng,xionghui-yang,wenxin-li" data-interests="llm-eval,ai-agents">
+        <div class="tl-date">Nov 2025 – Jan 2026 <span class="cat-label cat-research">Research</span></div>
         <div class="tl-inner">
-          <div class="tl-thumb">
-            <img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/BotzoneBench.jpg" alt="">
-          </div>
+          <div class="tl-thumb"><img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/BotzoneBench.jpg" alt=""></div>
           <div class="tl-body">
             <div class="tl-title">BotzoneBench: Scalable LLM Evaluation via Graded AI Anchors</div>
             <div class="tl-authors">Lingfeng Li, Yunlong Lu, <span class="me">Yuefei Zhang</span>, Jingyu Yao, Yixin Zhu, Keyuan Cheng, Yongyi Wang, Qirui Zheng, Xionghui Yang, Wenxin Li</div>
@@ -334,24 +469,61 @@
         </div>
       </div>
 
-    </div><!-- /tl -->
-
-    <!-- Experience -->
-    <div class="sec-head">Experience</div>
-    <div class="tl">
-
-      <div class="tl-item current">
-        <div class="tl-date">Apr 2026 – Present</div>
-        <div class="tl-body">
-          <div class="tl-title dark">Game Client Developer Intern <span style="font-weight:400;color:#999;font-size:0.85rem">· Tencent IEG</span></div>
-          <div class="tl-desc">Working on developing game clients based on Unreal Engine 5 and creating a UGC project, mainly responsible for gameplay design and implementation.</div>
-          <div class="tags"><span class="tag hi">C++</span><span class="tag hi">TypeScript</span><span class="tag hi">Unreal Engine 5</span><span class="tag">Game Client</span></div>
-          <div style="margin-top:6px;"><span class="badge-now">Current</span></div>
+      <!-- 7. ResidentRun · Oct – Nov 2025 -->
+      <div class="tl-item project" data-collabs="xiuling-jin" data-interests="game-dev,unreal-engine">
+        <div class="tl-date">Oct – Nov 2025 <span class="cat-label cat-project">Project</span></div>
+        <div class="tl-inner">
+          <div class="tl-thumb"><img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/ResidentRun.png" alt=""></div>
+          <div class="tl-body">
+            <div class="tl-title"><a href="https://github.com/new-tonAA/ResidentRun-UE5Game" target="_blank">ResidentRun</a></div>
+            <div class="tl-authors"><span class="me">Yuefei Zhang</span>, Xiuling Jin</div>
+            <div class="tl-desc">Intense 3D action-escape game built on UE5. Features sophisticated AI hunters, a "Bullet Time" mechanic for strategic escapes, and high-fidelity environmental rendering.</div>
+            <div class="tags"><span class="tag hi">UE5</span><span class="tag">C++</span><span class="tag">Blueprint</span></div>
+          </div>
         </div>
       </div>
 
-      <div class="tl-item">
-        <div class="tl-date">Jun 2025 – Aug 2025</div>
+      <!-- 8. IT Innovation Contest 2025 · Nov 2025 -->
+      <div class="tl-item award" data-collabs="zijin-tu,xiuling-jin" data-interests="hardware,sensors,unreal-engine">
+        <div class="tl-date">Nov 2025 <span class="cat-label cat-award">Award</span></div>
+        <div class="tl-body">
+          <div class="tl-title dark">Second Prize · National IT Innovation Application Contest</div>
+          <div class="tl-authors"><span class="me">Yuefei Zhang</span>, Zijin TU, Xiuling Jin</div>
+          <div class="tl-venue-row">
+            <span class="aw-scope scope-nat">National</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. CUMCM 2025 · Sep 2025 -->
+      <div class="tl-item award" data-collabs="zijin-tu,junxi-guo" data-interests="math-modeling">
+        <div class="tl-date">Sep 2025 <span class="cat-label cat-award">Award</span></div>
+        <div class="tl-body">
+          <div class="tl-title dark">First Prize · China Undergraduate Mathematical Contest in Modeling (CUMCM)</div>
+          <div class="tl-authors">Zijin Tu, <span class="me">Yuefei Zhang</span>, Junxi Guo</div>
+          <div class="tl-venue-row">
+            <span class="aw-scope scope-prov">Provincial</span>
+            <span class="venue-badge badge-blue">Programmer</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. TOtoTO · Jun – Sep 2025 -->
+      <div class="tl-item project" data-collabs="" data-interests="cv,cross-platform">
+        <div class="tl-date">Jun – Sep 2025 <span class="cat-label cat-project">Project</span></div>
+        <div class="tl-inner">
+          <div class="tl-thumb"><img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/TOTOTO.jpg" alt=""></div>
+          <div class="tl-body">
+            <div class="tl-title"><a href="https://github.com/new-tonAA/TOtoTO" target="_blank">TOtoTO — Campus Image Search</a></div>
+            <div class="tl-desc">Intelligent tour guide platform for SCUT integrating computer vision and location services. Faiss-based semantic image retrieval, real-time map localization, and AI-generated cultural introductions. Built with Vue 3, Flask, and MySQL.</div>
+            <div class="tags"><span class="tag hi">Vue 3</span><span class="tag hi">Python</span><span class="tag">Faiss</span><span class="tag">Vector Search</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10. EHang · Jun – Aug 2025 -->
+      <div class="tl-item exp" data-collabs="" data-interests="cross-platform">
+        <div class="tl-date">Jun – Aug 2025 <span class="cat-label cat-exp">Experience</span></div>
         <div class="tl-body">
           <div class="tl-title dark">Visual Department Developer Intern <span style="font-weight:400;color:#999;font-size:0.85rem">· EHang</span></div>
           <div class="tl-desc">Developed features for QGroundControl (QGC), an open-source drone ground control station, using Ubuntu 22.04 and Qt for cross-platform compilation. Identified and fixed a bug merged into the official repository.</div>
@@ -365,76 +537,31 @@
         </div>
       </div>
 
-    </div><!-- /tl -->
-
-    <!-- Projects -->
-    <div class="sec-head">Projects</div>
-    <div class="tl">
-
-      <div class="tl-item">
-        <div class="tl-date">May – Jun 2026</div>
-        <div class="tl-inner">
-          <div class="tl-thumb">
-            <img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/DesignTree.jpg" alt="">
-          </div>
-          <div class="tl-body">
-            <div class="tl-title"><a href="https://github.com/new-tonAA/DesignTree" target="_blank">DesignTree Agent</a></div>
-            <div class="tl-desc">AI-powered architectural design studio with visual design tree management. The agent automatically learns style preferences from selected images and generates coherent architectural concepts.</div>
-            <div class="tags"><span class="tag hi">Python</span><span class="tag">Agent</span><span class="tag">Image Generation</span></div>
+      <!-- 11. Math Competition 2025 · Mar 2025 -->
+      <div class="tl-item award" data-collabs="" data-interests="mathematics">
+        <div class="tl-date">Mar 2025 <span class="cat-label cat-award">Award</span></div>
+        <div class="tl-body">
+          <div class="tl-title dark">Third Prize · National Undergraduate Mathematics Competition</div>
+          <div class="tl-venue-row">
+            <span class="aw-scope scope-prov">Provincial</span>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
-        <div class="tl-date">Mar – Apr 2026</div>
-        <div class="tl-inner">
-          <div class="tl-thumb">
-            <img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/TestingAgent.png" alt="">
-          </div>
-          <div class="tl-body">
-            <div class="tl-title"><a href="https://github.com/new-tonAA/stupid_agent" target="_blank">Software Testing Agent</a></div>
-            <div class="tl-desc">End-to-end testing agent for C-based projects (e.g., SQLite3) with a collaborative pipeline for environment setup, static analysis, planning, execution, and refinement. Features iterative self-healing and dual-platform LLM integration.</div>
-            <div class="tags"><span class="tag hi">Python</span><span class="tag">Agent</span><span class="tag">LLM</span></div>
+      <!-- 13. Math Competition 2024 · 2024 -->
+      <div class="tl-item award" data-collabs="" data-interests="mathematics">
+        <div class="tl-date">Mar 2024 <span class="cat-label cat-award">Award</span></div>
+        <div class="tl-body">
+          <div class="tl-title dark">Second Prize · National Undergraduate Mathematics Competition</div>
+          <div class="tl-venue-row">
+            <span class="aw-scope scope-prov">Provincial</span>
           </div>
         </div>
       </div>
 
-      <div class="tl-item">
-        <div class="tl-date">Oct – Nov 2025</div>
-        <div class="tl-inner">
-          <div class="tl-thumb">
-            <img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/ResidentRun.png" alt="">
-          </div>
-          <div class="tl-body">
-            <div class="tl-title"><a href="https://github.com/new-tonAA/ResidentRun-UE5Game" target="_blank">ResidentRun</a></div>
-            <div class="tl-desc">Intense 3D action-escape game built on UE5. Features sophisticated AI hunters, a "Bullet Time" mechanic for strategic escapes, and high-fidelity environmental rendering.</div>
-            <div class="tags"><span class="tag hi">UE5</span><span class="tag">C++</span><span class="tag">Blueprint</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-date">Jun – Sep 2025</div>
-        <div class="tl-inner">
-          <div class="tl-thumb">
-            <img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/TOTOTO.jpg" alt="">
-          </div>
-          <div class="tl-body">
-            <div class="tl-title"><a href="https://github.com/new-tonAA/TOtoTO" target="_blank">TOtoTO — Campus Image Search</a></div>
-            <div class="tl-desc">Intelligent tour guide platform for SCUT integrating computer vision and location services. Faiss-based semantic image retrieval, real-time map localization, and AI-generated cultural introductions. Built with Vue 3, Flask, and MySQL.</div>
-            <div class="tags"><span class="tag hi">Vue 3</span><span class="tag hi">Python</span><span class="tag">Faiss</span><span class="tag">Vector Search</span></div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /tl -->
-
-    <!-- Education -->
-    <div class="sec-head">Education</div>
-    <div class="tl">
-
-      <div class="tl-item">
-        <div class="tl-date">Sep 2023 – Jun 2027</div>
+      <!-- 14. SCUT · Sep 2023 – Jun 2027 -->
+      <div class="tl-item edu" data-collabs="zikun-deng" data-interests="software-engineering">
+        <div class="tl-date">Sep 2023 – Jun 2027 <span class="cat-label cat-edu">Education</span></div>
         <div class="tl-body">
           <div class="tl-title dark">South China University of Technology</div>
           <div class="tl-sub">B.Eng. Software Engineering · Minor in Business Administration</div>
@@ -446,8 +573,9 @@
         </div>
       </div>
 
-      <div class="tl-item">
-        <div class="tl-date">Aug 2020 – Jun 2023</div>
+      <!-- 15. High School · Aug 2020 – Jun 2023 -->
+      <div class="tl-item edu" data-collabs="" data-interests="software-engineering">
+        <div class="tl-date">Aug 2020 – Jun 2023 <span class="cat-label cat-edu">Education</span></div>
         <div class="tl-body">
           <div class="tl-title dark">The Affiliated High School of SCNU</div>
           <div class="tl-sub">High School Diploma · Science Track</div>
@@ -461,22 +589,32 @@
   <!-- ── Right: Collaborators ── -->
   <aside class="collabs">
     <div class="collabs-title">Collaborators</div>
-    <a class="collab-name bold" href="https://zkdeng.org" target="_blank">Zikun Deng</a>
-    <a class="collab-name" href="#" target="_blank">Songyin Tang</a>
-    <a class="collab-name" href="#" target="_blank">Yile Cai</a>
-    <a class="collab-name" href="#" target="_blank">Yuqi Bu</a>
-    <a class="collab-name" href="#" target="_blank">Liuwu Li</a>
-    <a class="collab-name" href="#" target="_blank">Yi Cai</a>
-    <a class="collab-name" href="#" target="_blank">Lingfeng Li</a>
-    <a class="collab-name" href="#" target="_blank">Yunlong Lu</a>
-    <a class="collab-name" href="#" target="_blank">Jingyu Yao</a>
-    <a class="collab-name" href="#" target="_blank">Yixin Zhu</a>
-    <a class="collab-name" href="#" target="_blank">Wenxin Li</a>
+    <a class="collab-name linkable" data-id="jingyu-yao"         href="#" target="_blank">Jingyu Yao</a>
+    <a class="collab-name linkable" data-id="junxi-guo"          href="#" target="_blank">Junxi Guo</a>
+    <a class="collab-name linkable" data-id="keyuan-cheng"       href="#" target="_blank">Keyuan Cheng</a>
+    <a class="collab-name linkable" data-id="lingfeng-li"        href="#" target="_blank">Lingfeng Li</a>
+    <a class="collab-name linkable" data-id="liuwu-li"           href="#" target="_blank">Liuwu Li</a>
+    <a class="collab-name linkable" data-id="qirui-zheng"        href="#" target="_blank">Qirui Zheng</a>
+    <a class="collab-name linkable" data-id="songyin-tang"       href="#" target="_blank">Songyin Tang</a>
+    <a class="collab-name linkable" data-id="wenxin-li"          href="#" target="_blank">Wenxin Li</a>
+    <a class="collab-name linkable" data-id="xiuling-jin"        href="#" target="_blank">Xiuling Jin</a>
+    <a class="collab-name linkable" data-id="xionghui-yang"      href="#" target="_blank">Xionghui Yang</a>
+    <a class="collab-name linkable" data-id="yile-cai"           href="#" target="_blank">Yile Cai</a>
+    <a class="collab-name linkable" data-id="yi-cai"             href="#" target="_blank">Yi Cai</a>
+    <a class="collab-name linkable" data-id="yixin-zhu"          href="#" target="_blank">Yixin Zhu</a>
+    <a class="collab-name linkable" data-id="yongyi-wang"        href="#" target="_blank">Yongyi Wang</a>
+    <a class="collab-name linkable" data-id="yuqi-bu"            href="#" target="_blank">Yuqi Bu</a>
+    <a class="collab-name linkable" data-id="yunlong-lu"         href="#" target="_blank">Yunlong Lu</a>
+    <a class="collab-name linkable" data-id="zikun-deng"         href="https://zkdeng.org" target="_blank">Zikun Deng</a>
+    <a class="collab-name linkable" data-id="zijin-tu"           href="#" target="_blank">Zijin Tu</a>
   </aside>
 
 </div>
 
 <script>
+  // ══════════════════════════════════════
+  // Nav indicator
+  // ══════════════════════════════════════
   function moveIndicator(link) {
     const ind = document.getElementById('navIndicator');
     const ul  = document.getElementById('navLinks');
@@ -485,20 +623,203 @@
     ind.style.left  = (rect.left - ulRect.left) + 'px';
     ind.style.width = rect.width + 'px';
   }
-  const active = document.querySelector('.nav-links a.active');
-  if (active) {
+  const activeNav = document.querySelector('.nav-links a.active');
+  if (activeNav) {
     const ind = document.getElementById('navIndicator');
     ind.style.transition = 'none';
     requestAnimationFrame(() => {
-      moveIndicator(active);
+      moveIndicator(activeNav);
       requestAnimationFrame(() => { ind.style.transition = ''; });
     });
   }
   document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('mouseenter', () => moveIndicator(link));
-    link.addEventListener('mouseleave', () => { if (active) moveIndicator(active); });
+    link.addEventListener('mouseleave', () => { if (activeNav) moveIndicator(activeNav); });
   });
-  window.addEventListener('resize', () => { if (active) moveIndicator(active); });
+  window.addEventListener('resize', () => { if (activeNav) moveIndicator(activeNav); });
+
+  // ══════════════════════════════════════
+  // Connection lines: draw Bezier curves
+  // Left: sidebar interests ↔ timeline items
+  // Right: timeline items ↔ collaborators
+  // ══════════════════════════════════════
+  const svg = document.getElementById('connSvg');
+  const items = document.querySelectorAll('.tl-item[data-collabs]');
+  const collabEls = document.querySelectorAll('.collab-name[data-id]');
+  const sidebarTags = document.querySelectorAll('.sidebar-tag[data-id]');
+  let collabPaths = [];   // right-side: item → collaborator
+  let interestPaths = []; // left-side: sidebar tag → item
+
+  function drawConnections() {
+    svg.innerHTML = '';
+    collabPaths = [];
+    interestPaths = [];
+
+    const wrapEl = document.querySelector('.page-wrap');
+    const wrapRect = wrapEl.getBoundingClientRect();
+
+    // make SVG cover the full page-wrap area
+    svg.setAttribute('width', wrapEl.scrollWidth);
+    svg.setAttribute('height', wrapEl.scrollHeight);
+    svg.style.width = wrapEl.scrollWidth + 'px';
+    svg.style.height = wrapEl.scrollHeight + 'px';
+
+    items.forEach(item => {
+      const itemRect = item.getBoundingClientRect();
+      const itemCY = itemRect.top + itemRect.height * 0.5 - wrapRect.top;
+
+      // ── Right-side: item → collaborator ──
+      const collabIds = (item.dataset.collabs || '').split(',').filter(Boolean);
+      if (collabIds.length) {
+        const x1 = itemRect.right - wrapRect.left;
+        const y1 = itemCY;
+
+        collabIds.forEach(id => {
+          const collabEl = document.querySelector(`.collab-name[data-id="${id}"]`);
+          if (!collabEl) return;
+
+          const cRect = collabEl.getBoundingClientRect();
+          const x2 = cRect.left - wrapRect.left;
+          const y2 = cRect.top + cRect.height * 0.5 - wrapRect.top;
+
+          const dx = x2 - x1;
+          const cx1 = x1 + dx * 0.5;
+          const cx2 = x2 - dx * 0.5;
+
+          const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          path.setAttribute('d', `M${x1},${y1} C${cx1},${y1} ${cx2},${y2} ${x2},${y2}`);
+          path.setAttribute('class', 'conn-path');
+          path.dataset.itemId = item.dataset.itemIndex || '';
+          path.dataset.collabId = id;
+          svg.appendChild(path);
+          collabPaths.push({ el: path, itemId: item.dataset.itemIndex || '', collabId: id });
+        });
+      }
+
+      // ── Left-side: sidebar tag → item ──
+      const interestIds = (item.dataset.interests || '').split(',').filter(Boolean);
+      if (interestIds.length) {
+        const x2 = itemRect.left - wrapRect.left;
+        const y2 = itemCY;
+
+        interestIds.forEach(id => {
+          const tagEl = document.querySelector(`.sidebar-tag[data-id="${id}"]`);
+          if (!tagEl) return;
+
+          const tRect = tagEl.getBoundingClientRect();
+          const x1 = tRect.right - wrapRect.left;
+          const y1 = tRect.top + tRect.height * 0.5 - wrapRect.top;
+
+          const dx = x2 - x1;
+          const cx1 = x1 + dx * 0.5;
+          const cx2 = x2 - dx * 0.5;
+
+          const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          path.setAttribute('d', `M${x1},${y1} C${cx1},${y1} ${cx2},${y2} ${x2},${y2}`);
+          path.setAttribute('class', 'conn-path');
+          path.dataset.itemId = item.dataset.itemIndex || '';
+          path.dataset.interestId = id;
+          svg.appendChild(path);
+          interestPaths.push({ el: path, itemId: item.dataset.itemIndex || '', interestId: id });
+        });
+      }
+    });
+  }
+
+  // assign indices
+  items.forEach((item, i) => { item.dataset.itemIndex = String(i); });
+
+  // track currently hovered item for redraw persistence
+  let hoveredItemId = '';
+
+  // initial draw after layout settles
+  requestAnimationFrame(() => setTimeout(drawConnections, 50));
+  window.addEventListener('resize', drawConnections);
+
+  // debounced scroll redraw via rAF
+  let scrollRAF = null;
+  window.addEventListener('scroll', () => {
+    if (scrollRAF) cancelAnimationFrame(scrollRAF);
+    scrollRAF = requestAnimationFrame(() => {
+      drawConnections();
+      // re-apply highlights if something is hovered
+      if (hoveredItemId) highlightItem(hoveredItemId);
+    });
+  }, { passive: true });
+
+  // ══════════════════════════════════════
+  // Hover interactions
+  // ══════════════════════════════════════
+  function clearHighlights() {
+    collabPaths.forEach(p => p.el.classList.remove('highlighted'));
+    interestPaths.forEach(p => p.el.classList.remove('highlighted'));
+    document.querySelectorAll('.collab-name.highlighted').forEach(el => el.classList.remove('highlighted'));
+    document.querySelectorAll('.sidebar-tag.highlighted').forEach(el => el.classList.remove('highlighted'));
+    document.querySelectorAll('.tl-item.hovered').forEach(el => el.classList.remove('hovered'));
+  }
+
+  // highlight all connections for a given timeline item
+  function highlightItem(itemId) {
+    // right-side: collaborator lines
+    collabPaths.forEach(p => {
+      if (p.itemId === itemId) {
+        p.el.classList.add('highlighted');
+        const ce = document.querySelector(`.collab-name[data-id="${p.collabId}"]`);
+        if (ce) ce.classList.add('highlighted');
+      }
+    });
+    // left-side: interest lines
+    interestPaths.forEach(p => {
+      if (p.itemId === itemId) {
+        p.el.classList.add('highlighted');
+        const te = document.querySelector(`.sidebar-tag[data-id="${p.interestId}"]`);
+        if (te) te.classList.add('highlighted');
+      }
+    });
+  }
+
+  // hover timeline items → highlight lines + collaborators + interests
+  items.forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      clearHighlights();
+      hoveredItemId = item.dataset.itemIndex || '';
+      item.classList.add('hovered');
+      highlightItem(hoveredItemId);
+    });
+    item.addEventListener('mouseleave', () => { clearHighlights(); hoveredItemId = ''; });
+  });
+
+  // hover collaborators → highlight connected items
+  collabEls.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      clearHighlights();
+      el.classList.add('highlighted');
+      collabPaths.forEach(p => {
+        if (p.collabId === el.dataset.id) {
+          p.el.classList.add('highlighted');
+          const ie = document.querySelector(`.tl-item[data-item-index="${p.itemId}"]`);
+          if (ie) ie.classList.add('hovered');
+        }
+      });
+    });
+    el.addEventListener('mouseleave', () => clearHighlights());
+  });
+
+  // hover sidebar interests → highlight connected items
+  sidebarTags.forEach(tag => {
+    tag.addEventListener('mouseenter', () => {
+      clearHighlights();
+      tag.classList.add('highlighted');
+      interestPaths.forEach(p => {
+        if (p.interestId === tag.dataset.id) {
+          p.el.classList.add('highlighted');
+          const ie = document.querySelector(`.tl-item[data-item-index="${p.itemId}"]`);
+          if (ie) ie.classList.add('hovered');
+        }
+      });
+    });
+    tag.addEventListener('mouseleave', () => clearHighlights());
+  });
 </script>
 </body>
 </html>
