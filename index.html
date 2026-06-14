@@ -307,15 +307,20 @@
     }
 
     .card-links {
-      font-size: 0.8rem; color: #555;
-      display: flex; gap: 0; flex-wrap: wrap;
-      margin-top: 4px;
+      font-size: 0.82rem; color: #555;
+      display: flex; align-items: center; gap: 0;
+      flex-wrap: wrap; margin-top: 6px;
     }
 
-    .card-links span { color: #bbb; margin: 0 4px; }
+    .card-links span { color: #bbb; margin: 0 5px; }
 
     .card-links a {
-      color: #2563b0; display: inline-flex; align-items: center; gap: 3px;
+      color: #2563b0;
+      display: inline-flex; align-items: center; gap: 4px;
+    }
+
+    .card-links a svg {
+      width: 13px; height: 13px; flex-shrink: 0; fill: currentColor;
     }
 
     .card-links a:hover { text-decoration: underline; }
@@ -327,10 +332,12 @@
 
     /* ext link */
     .elink {
-      font-size: 0.78rem; color: #2563b0;
-      display: inline-flex; align-items: center; gap: 3px;
-      margin-top: 4px;
+      font-size: 0.82rem; color: #2563b0;
+      display: inline-flex; align-items: center; gap: 4px;
+      margin-top: 6px;
     }
+
+    .elink svg { width: 13px; height: 13px; flex-shrink: 0; fill: currentColor; }
 
     .elink::after { content: '↗'; font-size: 0.7rem; }
     .elink:hover { text-decoration: underline; }
@@ -566,7 +573,7 @@
         <div class="entry-title">Visual Department Developer Intern <span style="font-weight:400;color:#999;font-size:0.8rem">· EHang</span></div>
         <div class="entry-body">Developed features for QGroundControl (QGC), an open-source drone ground control station, using Ubuntu 22.04 and Qt for cross-platform compilation. Identified and fixed a bug merged into the official repository.</div>
         <div class="tags"><span class="tag hi">C++</span><span class="tag hi">Qt</span><span class="tag">Ubuntu 22.04</span><span class="tag">Cross-platform</span></div>
-        <a class="elink" href="https://github.com/mavlink/qgroundcontrol/pull/13209" target="_blank"><svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor" style="vertical-align:-2px;margin-right:3px"><path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/></svg>View PR #13209</a>
+        <a class="elink" href="https://github.com/mavlink/qgroundcontrol/pull/13209" target="_blank"><svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/></svg>View PR #13209</a>
       </div>
     </div>
 
@@ -585,7 +592,7 @@
           <span class="venue-detail">In Submission</span>
         </div>
         <div class="card-links">
-          [ <svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor" style="vertical-align:-2px;margin-right:3px"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg><a href="#">PDF</a> ]
+          [ <a href="#"><svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg>PDF</a> ]
         </div>
       </div>
     </div>
@@ -603,8 +610,8 @@
           <span class="venue-detail">In Submission</span>
         </div>
         <div class="card-links">
-          [ <svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor" style="vertical-align:-2px;margin-right:3px"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg><a href="https://arxiv.org/abs/2602.13214" target="_blank">PDF</a>
-          <span>|</span> <svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor" style="vertical-align:-2px;margin-right:3px"><path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/></svg><a href="https://arxiv.org/abs/2602.13214" target="_blank">arXiv</a> ]
+          [ <a href="https://arxiv.org/abs/2602.13214" target="_blank"><svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg>PDF</a>
+          <span>|</span> <a href="https://arxiv.org/abs/2602.13214" target="_blank"><svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/></svg>arXiv</a> ]
         </div>
       </div>
     </div>
