@@ -50,13 +50,27 @@
       font-family: 'Lora', serif; font-style: italic;
     }
 
-    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links { display: flex; gap: 0; list-style: none; position: relative; height: 100%; }
 
     .nav-links a {
-      font-size: 0.82rem; color: #555; transition: color 0.15s;
+      font-size: 0.88rem; color: #555; transition: color 0.15s;
+      padding: 0 18px; height: 100%; display: flex; align-items: center;
+      position: relative; text-decoration: none;
     }
 
-    .nav-links a:hover { color: #111; text-decoration: none; }
+    .nav-links a:hover { color: #111; }
+
+    .nav-links a.active { color: #111; }
+
+    /* animated yellow underline indicator */
+    .nav-indicator {
+      position: absolute;
+      bottom: 0; left: 0;
+      height: 3px; background: #f5b800;
+      transition: left 0.25s cubic-bezier(0.4,0,0.2,1),
+                  width 0.25s cubic-bezier(0.4,0,0.2,1);
+      pointer-events: none;
+    }
 
     /* ── Hero ── */
     #hero { padding: 90px 0 36px; }
@@ -469,13 +483,10 @@
 <nav>
   <div class="nav-inner">
     <span class="nav-name">Yuefei Zhang</span>
-    <ul class="nav-links">
-      <li><a href="#education">Education</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#research">Research</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#awards">Awards</a></li>
-      <li><a href="#contact">Contact</a></li>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active" data-tab="about">About</a></li>
+      <li><a href="details.html" data-tab="details">Details</a></li>
+      <div class="nav-indicator" id="navIndicator"></div>
     </ul>
   </div>
 </nav>
@@ -536,8 +547,6 @@
       <div>
         <div class="entry-title">South China University of Technology</div>
         <div class="entry-sub gray">B.Eng. Software Engineering · Minor in Business Administration</div>
-        <div class="entry-meta"><span class="lbl">Research</span><span class="val"><span class="hi">Computer Vision</span>, <span class="hi">Visual Grounding</span></span></div>
-        <div class="entry-meta"><span class="lbl">GPA</span><span class="val"><span class="hi">3.82 / 4.0</span></span> &nbsp;·&nbsp; <span class="lbl">IELTS</span><span class="val"><span class="hi">7.5</span></span></div>
         <div class="entry-meta"><span class="lbl">Advisor</span><span class="val"><a href="https://zkdeng.org" target="_blank">Zikun Deng</a></span></div>
         <div class="entry-meta"><span class="lbl">Honors</span><span class="val">SCUT University Scholarship (2024, 2025)</span></div>
         <div class="entry-meta"><span class="lbl">Courses</span><span class="val">C++, Java, Operating System, Computer Architecture, Networks, Database, Software Testing, Computer Graphics, Machine Learning</span></div>
@@ -757,10 +766,50 @@
 </footer>
 
 <script>
+  // fade-in on scroll
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
   }, { threshold: 0.05 });
   document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+
+  // nav indicator
+  function moveIndicator(activeLink) {
+    const ind = document.getElementById('navIndicator');
+    const ul  = document.getElementById('navLinks');
+    const ulRect = ul.getBoundingClientRect();
+    const rect = activeLink.getBoundingClientRect();
+    ind.style.left  = (rect.left - ulRect.left) + 'px';
+    ind.style.width = rect.width + 'px';
+  }
+
+  const links = document.querySelectorAll('.nav-links a');
+  // set initial position (no transition on first paint)
+  const active = document.querySelector('.nav-links a.active');
+  if (active) {
+    const ind = document.getElementById('navIndicator');
+    ind.style.transition = 'none';
+    // wait for layout
+    requestAnimationFrame(() => {
+      moveIndicator(active);
+      requestAnimationFrame(() => { ind.style.transition = ''; });
+    });
+  }
+
+  links.forEach(link => {
+    link.addEventListener('mouseenter', () => moveIndicator(link));
+    link.addEventListener('mouseleave', () => { if (active) moveIndicator(active); });
+    link.addEventListener('click', () => {
+      links.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      moveIndicator(link);
+    });
+  });
+
+  // hover highlight also moves indicator smoothly on nav resize
+  window.addEventListener('resize', () => {
+    const cur = document.querySelector('.nav-links a.active');
+    if (cur) moveIndicator(cur);
+  });
 </script>
 </body>
 </html>
