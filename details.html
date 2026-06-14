@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Details — Yuefei Zhang</title>
+  <link rel="icon" type="image/png" href="./image/icon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 18px; line-height: 1.7;
+      color: #222; background: #fff;
+    }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(4px);
+      border-bottom: 1px solid #e8e8e8;
+      border-top: 3px solid #f5b800;
+      z-index: 100;
+    }
+    .nav-inner {
+      width: 100%; padding: 0 40px; height: 46px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .nav-name {
+      font-size: 0.95rem; font-weight: 400; color: #111;
+      font-family: 'Lora', serif; font-style: italic;
+    }
+    .nav-links { display: flex; gap: 0; list-style: none; position: relative; height: 100%; }
+    .nav-links a {
+      font-size: 0.88rem; color: #555;
+      padding: 0 18px; height: 100%; display: flex; align-items: center;
+      text-decoration: none; transition: color 0.15s;
+    }
+    .nav-links a:hover { color: #111; }
+    .nav-links a.active { color: #111; }
+    .nav-indicator {
+      position: absolute; bottom: 0; left: 0;
+      height: 3px; background: #f5b800;
+      transition: left 0.25s cubic-bezier(0.4,0,0.2,1), width 0.25s cubic-bezier(0.4,0,0.2,1);
+      pointer-events: none;
+    }
+    .outer { max-width: 800px; margin: 0 auto; padding: 0 32px; }
+    main { padding: 110px 0 80px; }
+    .placeholder {
+      text-align: center; padding: 80px 0; color: #aaa;
+      font-family: 'Lora', serif; font-style: italic;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <span class="nav-name">Yuefei Zhang</span>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" data-tab="about">About</a></li>
+      <li><a href="details.html" class="active" data-tab="details">Details</a></li>
+      <div class="nav-indicator" id="navIndicator"></div>
+    </ul>
+  </div>
+</nav>
+<main>
+  <div class="outer">
+    <div class="placeholder">Coming soon — details page is under construction.</div>
+  </div>
+</main>
+<script>
+  function moveIndicator(link) {
+    const ind = document.getElementById('navIndicator');
+    const ul  = document.getElementById('navLinks');
+    const ulRect = ul.getBoundingClientRect();
+    const rect = link.getBoundingClientRect();
+    ind.style.left  = (rect.left - ulRect.left) + 'px';
+    ind.style.width = rect.width + 'px';
+  }
+  const active = document.querySelector('.nav-links a.active');
+  if (active) {
+    const ind = document.getElementById('navIndicator');
+    ind.style.transition = 'none';
+    requestAnimationFrame(() => {
+      moveIndicator(active);
+      requestAnimationFrame(() => { ind.style.transition = ''; });
+    });
+  }
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('mouseenter', () => moveIndicator(link));
+    link.addEventListener('mouseleave', () => { if (active) moveIndicator(active); });
+  });
+  window.addEventListener('resize', () => { if (active) moveIndicator(active); });
+</script>
+</body>
+</html>
