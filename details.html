@@ -4,6 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Details — Yuefei Zhang</title>
+  <meta name="color-scheme" content="light dark">
+  <script>
+    // apply theme before first paint to avoid a bright flash
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        var dark = saved ? saved === 'dark'
+                         : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+      } catch (e) {}
+    })();
+  </script>
   <link rel="icon" type="image/png" href="./image/icon.png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <style>
@@ -44,6 +56,26 @@
     }
     .nav-links a:hover { color: #111; }
     .nav-links a.active { color: #111; }
+
+    /* ── Theme toggle ── */
+    .nav-right { display: flex; align-items: center; height: 100%; gap: 6px; }
+
+    .theme-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; padding: 0;
+      background: transparent;
+      border: 1px solid #ddd; border-radius: 3px;
+      color: #555; cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .theme-btn:hover { border-color: #2563b0; color: #2563b0; }
+    .theme-btn svg { width: 15px; height: 15px; fill: currentColor; }
+
+    .theme-btn .icon-sun { display: none; }
+    :root[data-theme="dark"] .theme-btn .icon-sun  { display: block; }
+    :root[data-theme="dark"] .theme-btn .icon-moon { display: none; }
+
     .nav-indicator {
       position: absolute; bottom: 0; left: 0;
       height: 3px; background: #f5b800;
@@ -335,6 +367,74 @@
       nav { display: none; }
       .conn-svg-layer { display: none; }
     }
+
+    /* ── Dark theme ── */
+    :root[data-theme="dark"] { background: #131518; color-scheme: dark; }
+
+    :root[data-theme="dark"] body { color: #d6d9de; background: #131518; }
+    :root[data-theme="dark"] a { color: #7fb0e8; }
+
+    :root[data-theme="dark"] nav { background: rgba(19,21,24,0.97); border-bottom-color: #2a2e34; }
+    :root[data-theme="dark"] .nav-name { color: #e8eaed; }
+    :root[data-theme="dark"] .nav-links a { color: #9aa0a8; }
+    :root[data-theme="dark"] .nav-links a:hover,
+    :root[data-theme="dark"] .nav-links a.active { color: #fff; }
+    :root[data-theme="dark"] .theme-btn { border-color: #34383f; color: #9aa0a8; }
+    :root[data-theme="dark"] .theme-btn:hover { border-color: #7fb0e8; color: #7fb0e8; }
+
+    :root[data-theme="dark"] .sidebar-title,
+    :root[data-theme="dark"] .collabs-title { color: #8b9199; }
+    :root[data-theme="dark"] .sidebar-tag { color: #8b9199; }
+    :root[data-theme="dark"] .sidebar-tag.bold { color: #d6d9de; }
+    :root[data-theme="dark"] .sidebar-tag:hover { color: #e8eaed; }
+    :root[data-theme="dark"] .sidebar-tag[data-id]:hover,
+    :root[data-theme="dark"] .sidebar-tag.highlighted { color: #7fb0e8; }
+    :root[data-theme="dark"] .sidebar-count { color: #5c626a; }
+
+    :root[data-theme="dark"] .page-title { color: #f0f1f3; border-bottom-color: #d8dbe0; }
+    :root[data-theme="dark"] .tl::before { background: #2a2e34; }
+    :root[data-theme="dark"] .tl-item::before { background: #131518; border-color: #3a424c; }
+    :root[data-theme="dark"] .tl-item:hover::before { background: #7fb0e8; border-color: #7fb0e8; }
+    :root[data-theme="dark"] .tl-item.current::before,
+    :root[data-theme="dark"] .tl-item.current:hover::before { background: #f5b800; border-color: #f5b800; }
+    :root[data-theme="dark"] .tl-item:hover,
+    :root[data-theme="dark"] .tl-item.hovered { background-color: #1a2330; box-shadow: 0 1px 6px rgba(0,0,0,0.35); }
+    :root[data-theme="dark"] .tl-date { color: #7d838b; }
+
+    :root[data-theme="dark"] .cat-research { background: #172a4a; color: #93b8f5; }
+    :root[data-theme="dark"] .cat-exp      { background: #3a2413; color: #f0a878; }
+    :root[data-theme="dark"] .cat-project  { background: #12301d; color: #7fd39a; }
+    :root[data-theme="dark"] .cat-edu      { background: #261b3e; color: #b39af5; }
+    :root[data-theme="dark"] .cat-award    { background: #3a2a0f; color: #f0bf5a; }
+
+    :root[data-theme="dark"] .tl-thumb img { border-color: #2a2e34; }
+    :root[data-theme="dark"] .tl-title { color: #7fb0e8; }
+    :root[data-theme="dark"] .tl-title.dark { color: #f0f1f3; }
+    :root[data-theme="dark"] .tl-sub { color: #8b9199; }
+    :root[data-theme="dark"] .tl-authors { color: #b3b9c1; }
+    :root[data-theme="dark"] .tl-authors .me { color: #f0f1f3; }
+    :root[data-theme="dark"] .tl-desc { color: #b3b9c1; }
+    :root[data-theme="dark"] .venue-full { color: #9aa0a8; }
+
+    :root[data-theme="dark"] .aw-scope.scope-int { border-color: #f87171; color: #f87171; }
+    :root[data-theme="dark"] .aw-scope.scope-nat { border-color: #fbbf24; color: #fbbf24; }
+    :root[data-theme="dark"] .aw-scope.scope-prov { border-color: #7aa7f0; color: #7aa7f0; }
+
+    :root[data-theme="dark"] .tag { border-color: #34383f; color: #9aa0a8; }
+    :root[data-theme="dark"] .tag.hi { border-color: #f87171; color: #f87171; }
+    :root[data-theme="dark"] .badge-now { border-color: #f87171; color: #fca5a5; }
+
+    :root[data-theme="dark"] .tl-links { color: #b3b9c1; }
+    :root[data-theme="dark"] .tl-links span { color: #555; }
+    :root[data-theme="dark"] .tl-links a { color: #7fb0e8; }
+
+    :root[data-theme="dark"] .conn-path { stroke: #3a424c; }
+    :root[data-theme="dark"] .conn-path.highlighted { stroke: #7fb0e8; }
+
+    :root[data-theme="dark"] .collab-name { color: #8b9199; }
+    :root[data-theme="dark"] .collab-name.bold { color: #d6d9de; }
+    :root[data-theme="dark"] .collab-name.highlighted { color: #7fb0e8; }
+    :root[data-theme="dark"] .collab-name.linkable:hover { color: #7fb0e8; }
   </style>
 </head>
 <body>
@@ -342,11 +442,17 @@
 <nav>
   <div class="nav-inner">
     <span class="nav-name">Yuefei Zhang</span>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html" data-tab="about">About</a></li>
-      <li><a href="details.html" class="active" data-tab="details">Details</a></li>
-      <div class="nav-indicator" id="navIndicator"></div>
-    </ul>
+    <div class="nav-right">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" data-tab="about">About</a></li>
+        <li><a href="details.html" class="active" data-tab="details">Details</a></li>
+        <div class="nav-indicator" id="navIndicator"></div>
+      </ul>
+      <button class="theme-btn" id="themeToggle" type="button" aria-label="Switch to dark theme" title="Switch to dark theme">
+        <svg class="icon-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3a1 1 0 011 1v1a1 1 0 11-2 0V4a1 1 0 011-1zm0 11a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm7-4a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zm11.657-5.657a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM6.464 13.536a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zm9.193 2.121a1 1 0 01-1.414 0l-.707-.707a1 1 0 011.414-1.414l.707.707a1 1 0 010 1.414zM5.757 5.757a1 1 0 01-1.414 0l-.707-.707A1 1 0 014.05 3.636l.707.707a1 1 0 010 1.414zM10 6a4 4 0 100 8 4 4 0 000-8z"/></svg>
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -832,6 +938,40 @@
       if (item) scrollToItem(item);
     });
   });
+
+  // ══════════════════════════════════════
+  // Theme toggle
+  // ══════════════════════════════════════
+  (function () {
+    const root  = document.documentElement;
+    const btn   = document.getElementById('themeToggle');
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    function stored() { try { return localStorage.getItem('theme'); } catch (e) { return null; } }
+
+    function syncBtn() {
+      const label = root.getAttribute('data-theme') === 'dark'
+        ? 'Switch to light theme'
+        : 'Switch to dark theme';
+      btn.setAttribute('aria-label', label);
+      btn.setAttribute('title', label);
+    }
+
+    function apply(dark) {
+      root.setAttribute('data-theme', dark ? 'dark' : 'light');
+      syncBtn();
+    }
+
+    syncBtn();
+
+    btn.addEventListener('click', () => {
+      const dark = root.getAttribute('data-theme') !== 'dark';
+      apply(dark);
+      try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
+    });
+
+    // keep following the system until the visitor picks a theme manually
+    media.addEventListener('change', e => { if (!stored()) apply(e.matches); });
+  })();
 </script>
 </body>
 </html>

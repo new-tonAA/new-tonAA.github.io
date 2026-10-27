@@ -4,6 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yuefei Zhang</title>
+  <meta name="color-scheme" content="light dark">
+  <script>
+    // apply theme before first paint to avoid a bright flash
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        var dark = saved ? saved === 'dark'
+                         : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+      } catch (e) {}
+    })();
+  </script>
   <link rel="icon" type="image/png" href="./image/icon.png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <style>
@@ -61,6 +73,25 @@
     .nav-links a:hover { color: #111; }
 
     .nav-links a.active { color: #111; }
+
+    /* ── Theme toggle ── */
+    .nav-right { display: flex; align-items: center; height: 100%; gap: 6px; }
+
+    .theme-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; padding: 0;
+      background: transparent;
+      border: 1px solid #ddd; border-radius: 3px;
+      color: #555; cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .theme-btn:hover { border-color: #2563b0; color: #2563b0; }
+    .theme-btn svg { width: 15px; height: 15px; fill: currentColor; }
+
+    .theme-btn .icon-sun { display: none; }
+    :root[data-theme="dark"] .theme-btn .icon-sun  { display: block; }
+    :root[data-theme="dark"] .theme-btn .icon-moon { display: none; }
 
     /* animated yellow underline indicator */
     .nav-indicator {
@@ -476,6 +507,89 @@
       .aw-entry { grid-template-columns: 38px 14px 1fr; }
       .aw-scope { display: none; }
     }
+
+    /* ── Dark theme ── */
+    :root[data-theme="dark"] { background: #131518; color-scheme: dark; }
+
+    :root[data-theme="dark"] body { color: #d6d9de; background: #131518; }
+    :root[data-theme="dark"] a { color: #7fb0e8; }
+
+    :root[data-theme="dark"] nav { background: rgba(19,21,24,0.97); border-bottom-color: #2a2e34; }
+    :root[data-theme="dark"] .nav-name { color: #e8eaed; }
+    :root[data-theme="dark"] .nav-links a { color: #9aa0a8; }
+    :root[data-theme="dark"] .nav-links a:hover,
+    :root[data-theme="dark"] .nav-links a.active { color: #fff; }
+    :root[data-theme="dark"] .theme-btn { border-color: #34383f; color: #9aa0a8; }
+    :root[data-theme="dark"] .theme-btn:hover { border-color: #7fb0e8; color: #7fb0e8; }
+
+    :root[data-theme="dark"] .avatar { border-color: #34383f; }
+    :root[data-theme="dark"] h1 { color: #f0f1f3; }
+    :root[data-theme="dark"] h1 .cn { color: #8b9199; }
+    :root[data-theme="dark"] .hero-affil { color: #c2c7cf; }
+    :root[data-theme="dark"] .hero-affil .org { color: #e8eaed; }
+    :root[data-theme="dark"] .hero-affil .sep { color: #555; }
+    :root[data-theme="dark"] .hero-interest { color: #8b9199; }
+    :root[data-theme="dark"] .hero-bio { color: #c2c7cf; }
+    :root[data-theme="dark"] .hero-links a { color: #b0b6be; border-color: #34383f; }
+    :root[data-theme="dark"] .hero-links a:hover { border-color: #7fb0e8; color: #7fb0e8; }
+
+    :root[data-theme="dark"] h2 { color: #f0f1f3; border-bottom-color: #d8dbe0; }
+    :root[data-theme="dark"] .entry { border-bottom-color: #23272c; }
+    :root[data-theme="dark"] .entry-date { color: #7d838b; }
+    :root[data-theme="dark"] .entry-title { color: #f0f1f3; }
+    :root[data-theme="dark"] .entry-sub { color: #7fb0e8; }
+    :root[data-theme="dark"] .entry-sub.gray { color: #8b9199; }
+    :root[data-theme="dark"] .entry-body { color: #b3b9c1; }
+    :root[data-theme="dark"] .entry-meta { color: #b3b9c1; }
+    :root[data-theme="dark"] .entry-meta .lbl { color: #7d838b; }
+    :root[data-theme="dark"] .entry-meta .val { color: #cfd3d8; }
+    :root[data-theme="dark"] .entry-meta .hi { color: #f87171; }
+
+    :root[data-theme="dark"] .tag { border-color: #34383f; color: #9aa0a8; }
+    :root[data-theme="dark"] .tag.hi { border-color: #f87171; color: #f87171; }
+
+    :root[data-theme="dark"] .badge-paper { border-color: #3f8f5f; color: #86efac; background: #12261a; }
+    :root[data-theme="dark"] .badge-now   { border-color: #f87171; color: #fca5a5; background: #2a1517; }
+
+    :root[data-theme="dark"] .card-entry { border-bottom-color: #23272c; }
+    :root[data-theme="dark"] .card-date { color: #7d838b; }
+    :root[data-theme="dark"] .card-thumb { border-color: #2a2e34; background: #1b1e22; }
+    :root[data-theme="dark"] .card-title,
+    :root[data-theme="dark"] .card-title a { color: #7fb0e8; }
+    :root[data-theme="dark"] .paper-authors { color: #b3b9c1; }
+    :root[data-theme="dark"] .paper-authors .me { color: #f0f1f3; }
+    :root[data-theme="dark"] .venue-badge.conf { background: #2f6db5; }
+    :root[data-theme="dark"] .venue-badge.sub  { background: #2f7d4f; }
+    :root[data-theme="dark"] .venue-detail { color: #b3b9c1; }
+    :root[data-theme="dark"] .card-links { color: #b3b9c1; }
+    :root[data-theme="dark"] .card-links span { color: #555; }
+    :root[data-theme="dark"] .card-links a { color: #7fb0e8; }
+    :root[data-theme="dark"] .card-body { color: #b3b9c1; }
+    :root[data-theme="dark"] .elink { color: #7fb0e8; }
+
+    :root[data-theme="dark"] .aw-entry { border-bottom-color: #23272c; }
+    :root[data-theme="dark"] .aw-yr { color: #7d838b; }
+    :root[data-theme="dark"] .aw-text { color: #e3e6ea; }
+    :root[data-theme="dark"] .aw-dot.gold { background: #d97706; }
+    :root[data-theme="dark"] .aw-dot.silver { background: #7d838b; }
+    :root[data-theme="dark"] .scope-int { border-color: #f87171; color: #f87171; }
+    :root[data-theme="dark"] .scope-nat { border-color: #fbbf24; color: #fbbf24; }
+    :root[data-theme="dark"] .scope-prov { border-color: #7aa7f0; color: #7aa7f0; }
+
+    :root[data-theme="dark"] .contact-hed { color: #f0f1f3; }
+    :root[data-theme="dark"] .contact-hed em { color: #f87171; }
+    :root[data-theme="dark"] .contact-note { color: #9aa0a8; }
+    :root[data-theme="dark"] .c-list li { border-bottom-color: #23272c; }
+    :root[data-theme="dark"] .c-lbl { color: #7d838b; }
+    :root[data-theme="dark"] .c-val { color: #c2c7cf; }
+
+    :root[data-theme="dark"] footer { border-top-color: #2a2e34; }
+    :root[data-theme="dark"] .footer-copy { color: #6b7178; }
+    :root[data-theme="dark"] .footer-links a { color: #8b9199; }
+    :root[data-theme="dark"] .footer-links a:hover { color: #fff; }
+
+    :root[data-theme="dark"] .subhead { color: #7d838b; }
+    :root[data-theme="dark"] .subhead::after { background: #23272c; }
   </style>
 </head>
 <body>
@@ -483,11 +597,17 @@
 <nav>
   <div class="nav-inner">
     <span class="nav-name">Yuefei Zhang</span>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html" class="active" data-tab="about">About</a></li>
-      <li><a href="details.html" data-tab="details">Details</a></li>
-      <div class="nav-indicator" id="navIndicator"></div>
-    </ul>
+    <div class="nav-right">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="active" data-tab="about">About</a></li>
+        <li><a href="details.html" data-tab="details">Details</a></li>
+        <div class="nav-indicator" id="navIndicator"></div>
+      </ul>
+      <button class="theme-btn" id="themeToggle" type="button" aria-label="Switch to dark theme" title="Switch to dark theme">
+        <svg class="icon-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3a1 1 0 011 1v1a1 1 0 11-2 0V4a1 1 0 011-1zm0 11a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm7-4a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zm11.657-5.657a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM6.464 13.536a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zm9.193 2.121a1 1 0 01-1.414 0l-.707-.707a1 1 0 011.414-1.414l.707.707a1 1 0 010 1.414zM5.757 5.757a1 1 0 01-1.414 0l-.707-.707A1 1 0 014.05 3.636l.707.707a1 1 0 010 1.414zM10 6a4 4 0 100 8 4 4 0 000-8z"/></svg>
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -811,6 +931,38 @@
     const cur = document.querySelector('.nav-links a.active');
     if (cur) moveIndicator(cur);
   });
+
+  // ── theme toggle ──
+  (function () {
+    const root  = document.documentElement;
+    const btn   = document.getElementById('themeToggle');
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    function stored() { try { return localStorage.getItem('theme'); } catch (e) { return null; } }
+
+    function syncBtn() {
+      const label = root.getAttribute('data-theme') === 'dark'
+        ? 'Switch to light theme'
+        : 'Switch to dark theme';
+      btn.setAttribute('aria-label', label);
+      btn.setAttribute('title', label);
+    }
+
+    function apply(dark) {
+      root.setAttribute('data-theme', dark ? 'dark' : 'light');
+      syncBtn();
+    }
+
+    syncBtn();
+
+    btn.addEventListener('click', () => {
+      const dark = root.getAttribute('data-theme') !== 'dark';
+      apply(dark);
+      try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
+    });
+
+    // keep following the system until the visitor picks a theme manually
+    media.addEventListener('change', e => { if (!stored()) apply(e.matches); });
+  })();
 </script>
 </body>
 </html>
