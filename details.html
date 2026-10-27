@@ -62,19 +62,48 @@
 
     .theme-btn {
       display: inline-flex; align-items: center; justify-content: center;
-      width: 28px; height: 28px; padding: 0;
+      width: 30px; height: 30px; padding: 0;
       background: transparent;
       border: 1px solid #ddd; border-radius: 3px;
       color: #555; cursor: pointer;
-      transition: border-color 0.15s, color 0.15s;
+      transition: border-color 0.15s, color 0.15s,
+                  background-color 0.15s, transform 0.15s;
     }
 
     .theme-btn:hover { border-color: #2563b0; color: #2563b0; }
-    .theme-btn svg { width: 15px; height: 15px; fill: currentColor; }
+    .theme-btn:active { transform: scale(0.9); }
 
-    .theme-btn .icon-sun { display: none; }
-    :root[data-theme="dark"] .theme-btn .icon-sun  { display: block; }
-    :root[data-theme="dark"] .theme-btn .icon-moon { display: none; }
+    .icon-wrap { position: relative; display: block; width: 16px; height: 16px; }
+    .icon-wrap svg {
+      position: absolute; inset: 0;
+      width: 16px; height: 16px; fill: currentColor;
+      transition: opacity 0.3s ease,
+                  transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1);
+    }
+    .icon-wrap .icon-moon { opacity: 1; transform: rotate(0deg) scale(1); }
+    .icon-wrap .icon-sun  { opacity: 0; transform: rotate(-90deg) scale(0.4); }
+    :root[data-theme="dark"] .icon-wrap .icon-moon { opacity: 0; transform: rotate(90deg) scale(0.4); }
+    :root[data-theme="dark"] .icon-wrap .icon-sun  { opacity: 1; transform: rotate(0deg) scale(1); }
+
+    /* smooth cross-fade while switching themes */
+    html.theme-anim,
+    html.theme-anim *,
+    html.theme-anim *::before,
+    html.theme-anim *::after {
+      transition: background-color 0.35s ease, color 0.35s ease,
+                  border-color 0.35s ease, fill 0.35s ease,
+                  stroke 0.35s ease, box-shadow 0.35s ease !important;
+    }
+    html.theme-anim .icon-wrap svg {
+      transition: opacity 0.3s ease,
+                  transform 0.45s cubic-bezier(0.34, 1.4, 0.64, 1) !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html.theme-anim, html.theme-anim *,
+      html.theme-anim *::before, html.theme-anim *::after,
+      .icon-wrap svg { transition: none !important; }
+    }
 
     .nav-indicator {
       position: absolute; bottom: 0; left: 0;
@@ -449,8 +478,10 @@
         <div class="nav-indicator" id="navIndicator"></div>
       </ul>
       <button class="theme-btn" id="themeToggle" type="button" aria-label="Switch to dark theme" title="Switch to dark theme">
-        <svg class="icon-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
-        <svg class="icon-sun" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3a1 1 0 011 1v1a1 1 0 11-2 0V4a1 1 0 011-1zm0 11a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm7-4a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zm11.657-5.657a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM6.464 13.536a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zm9.193 2.121a1 1 0 01-1.414 0l-.707-.707a1 1 0 011.414-1.414l.707.707a1 1 0 010 1.414zM5.757 5.757a1 1 0 01-1.414 0l-.707-.707A1 1 0 014.05 3.636l.707.707a1 1 0 010 1.414zM10 6a4 4 0 100 8 4 4 0 000-8z"/></svg>
+        <span class="icon-wrap">
+          <svg class="icon-moon" viewBox="0 0 20 20" aria-hidden="true"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3a1 1 0 011 1v1a1 1 0 11-2 0V4a1 1 0 011-1zm0 11a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm7-4a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zm11.657-5.657a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM6.464 13.536a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zm9.193 2.121a1 1 0 01-1.414 0l-.707-.707a1 1 0 011.414-1.414l.707.707a1 1 0 010 1.414zM5.757 5.757a1 1 0 01-1.414 0l-.707-.707A1 1 0 014.05 3.636l.707.707a1 1 0 010 1.414zM10 6a4 4 0 100 8 4 4 0 000-8z"/></svg>
+        </span>
       </button>
     </div>
   </div>
@@ -963,14 +994,30 @@
 
     syncBtn();
 
+    // fade every colour over ~0.35s instead of snapping
+    let animTimer = null;
+    function animateThemeChange(change) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        change();
+        return;
+      }
+      root.classList.add('theme-anim');
+      void root.offsetWidth; // flush styles so the transition applies to this change
+      change();
+      clearTimeout(animTimer);
+      animTimer = setTimeout(() => root.classList.remove('theme-anim'), 400);
+    }
+
     btn.addEventListener('click', () => {
       const dark = root.getAttribute('data-theme') !== 'dark';
-      apply(dark);
+      animateThemeChange(() => apply(dark));
       try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
     });
 
     // keep following the system until the visitor picks a theme manually
-    media.addEventListener('change', e => { if (!stored()) apply(e.matches); });
+    media.addEventListener('change', e => {
+      if (!stored()) animateThemeChange(() => apply(e.matches));
+    });
   })();
 </script>
 </body>
