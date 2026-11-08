@@ -529,12 +529,78 @@
     /* ── Responsive ── */
     @media (max-width: 580px) {
       .outer { padding: 0 18px; }
-      .entry { grid-template-columns: 1fr; }
-      .entry-date { margin-bottom: 2px; }
+
+      /* keep the top bar: page links + theme toggle stay reachable */
+      .nav-inner {
+        padding-left:  max(16px, env(safe-area-inset-left));
+        padding-right: max(16px, env(safe-area-inset-right));
+      }
+      .nav-name { font-size: 0.9rem; }
+      .nav-links a { font-size: 0.84rem; padding: 0 12px; }
+      .theme-btn { width: 34px; height: 34px; }
+
+      #hero { padding: 76px 0 26px; }
+      .hero-top { gap: 16px; margin-bottom: 16px; }
+      .avatar { width: 72px; height: 72px; }
+      h1 { font-size: 1.35rem; line-height: 1.3; }
+      h1 .cn { display: block; font-size: 0.9rem; margin-top: 2px; }
+      .hero-affil { font-size: 0.86rem; }
+      .hero-bio { font-size: 0.88rem; line-height: 1.75; margin-bottom: 16px; }
+      .hero-links { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+      .hero-links a { font-size: 0.82rem; padding: 8px 14px; justify-content: center; }
+
+      .sec { padding: 24px 0; }
+      h2 { font-size: 1rem; margin-bottom: 16px; }
+
+      .entry { grid-template-columns: 1fr; padding: 14px 0; }
+      .entry-date { margin-bottom: 4px; font-size: 0.73rem; }
+      .entry-body, .entry-meta { font-size: 0.84rem; }
+
+      /* stack cards: thumbnail on top, text below */
+      .card-entry { flex-direction: column; gap: 12px; padding: 16px 0; }
+      .card-left { width: 100%; display: block; }
+      .card-date { display: block; margin-bottom: 8px; }
+      .card-thumb { width: 100%; height: auto; border-radius: 2px; }
+      .card-right { width: 100%; }
+      .card-title { font-size: 1rem; margin-bottom: 6px; }
+      .paper-authors { font-size: 0.83rem; }
+      .card-body { font-size: 0.85rem; }
+      .card-links { font-size: 0.84rem; margin-top: 8px; }
+      .card-links a, .elink { padding: 4px 0; }
+
+      /* awards keep the scope badge, dropped to its own line */
+      .aw-entry { grid-template-columns: 34px 12px 1fr; row-gap: 4px; padding: 12px 0; }
+      .aw-text { font-size: 0.86rem; }
+      .aw-scope { grid-column: 3; justify-self: start; font-size: 0.64rem; }
+
       .contact-wrap { grid-template-columns: 1fr; gap: 24px; }
-      nav { display: none; }
-      .aw-entry { grid-template-columns: 38px 14px 1fr; }
-      .aw-scope { display: none; }
+      .contact-hed { font-size: 1.12rem; }
+      .c-list li { font-size: 0.8rem; gap: 10px; }
+      .c-lbl { min-width: 56px; }
+      .c-val { min-width: 0; overflow-wrap: anywhere; }
+
+      footer { padding: 18px 0; }
+      .footer-inner {
+        flex-direction: column; align-items: flex-start;
+        gap: 10px; padding: 0 18px;
+      }
+      .footer-links { flex-wrap: wrap; gap: 14px; }
+      .footer-links a { padding: 4px 0; }
+    }
+
+    /* very narrow phones: drop the wordmark, keep links + toggle */
+    @media (max-width: 359px) {
+      .nav-name { display: none; }
+      .nav-inner { justify-content: flex-end; }
+      h1 { font-size: 1.25rem; }
+      .avatar { width: 62px; height: 62px; }
+    }
+
+    /* touch devices: no grey tap flash, add a light press response */
+    @media (hover: none) {
+      a, button { -webkit-tap-highlight-color: transparent; }
+      a:active { opacity: 0.62; }
+      .theme-btn:active { opacity: 1; transform: scale(0.9); }
     }
 
     /* ── Dark theme ── */
@@ -766,7 +832,7 @@
     <div class="card-entry">
       <div class="card-left">
         <div class="card-date">Mar 2025 – Jul 2026</div>
-        <img class="card-thumb" src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/VGD.png">
+        <img class="card-thumb" loading="lazy" decoding="async" width="2027" height="920" src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/VGD.png">
       </div>
       <div class="card-right">
         <div class="card-title">Show Me the Answer: Visual Grounding on Dashboards</div>
@@ -803,7 +869,7 @@
     <div class="card-entry">
       <div class="card-left">
         <div class="card-date">Jun 2026</div>
-        <img class="card-thumb" src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/PCGWorld.jpg">
+        <img class="card-thumb" loading="lazy" decoding="async" width="1600" height="900" src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/PCGWorld.jpg">
       </div>
       <div class="card-right">
         <div class="card-title"><a href="https://github.com/new-tonAA/PCG" target="_blank">PCG WORLD</a></div>
@@ -816,7 +882,7 @@
     <div class="card-entry">
       <div class="card-left">
         <div class="card-date">Mar – Apr 2026</div>
-        <img class="card-thumb" src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/TestingAgent.png">
+        <img class="card-thumb" loading="lazy" decoding="async" width="1860" height="915" src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/TestingAgent.png">
       </div>
       <div class="card-right">
         <div class="card-title"><a href="https://github.com/new-tonAA/stupid_agent" target="_blank">Software Testing Agent</a></div>
@@ -828,7 +894,7 @@
     <div class="card-entry">
       <div class="card-left">
         <div class="card-date">Jun – Sep 2025</div>
-        <img class="card-thumb" src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/TOTOTO.jpg">
+        <img class="card-thumb" loading="lazy" decoding="async" width="2513" height="1493" src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/TOTOTO.jpg">
       </div>
       <div class="card-right">
         <div class="card-title"><a href="https://github.com/new-tonAA/TOtoTO" target="_blank">TOtoTO — Campus Image Search</a></div>

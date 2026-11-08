@@ -393,8 +393,51 @@
     @media (max-width: 860px) {
       .page-wrap { grid-template-columns: 1fr; }
       .sidebar, .collabs { position: static; }
-      nav { display: none; }
       .conn-svg-layer { display: none; }
+
+      /* interests become a left-aligned chip row instead of a right-aligned column */
+      .sidebar { padding-top: 6px; padding-bottom: 18px; border-bottom: 1px solid rgba(128,128,128,0.18); }
+      .sidebar-title { text-align: left; margin-bottom: 8px; }
+      .sidebar-tags { flex-direction: row; flex-wrap: wrap; gap: 6px; text-align: left; }
+      .sidebar-tag {
+        font-size: 0.78rem; line-height: 1.4;
+        padding: 2px 9px; border: 1px solid rgba(128,128,128,0.28);
+        border-radius: 3px;
+      }
+      .main { padding-top: 16px; }
+    }
+
+    /* compact top bar so the way back to About and the theme toggle stay reachable */
+    @media (max-width: 580px) {
+      .nav-inner {
+        padding-left:  max(16px, env(safe-area-inset-left));
+        padding-right: max(16px, env(safe-area-inset-right));
+      }
+      .nav-name { font-size: 0.9rem; }
+      .nav-links a { font-size: 0.84rem; padding: 0 12px; }
+      .theme-btn { width: 34px; height: 34px; }
+      .page-wrap { padding: 68px 18px 56px; }
+
+      /* timeline cards: thumbnail above the text, full width */
+      .tl-item { padding: 14px 4px 14px 18px; }
+      .tl-inner { flex-direction: column; gap: 12px; }
+      .tl-thumb { width: 100%; align-self: stretch; }
+      .tl-thumb img { width: 100%; }
+      .tl-item::before { top: 22px; }
+
+      .collabs { padding-top: 28px; }
+    }
+
+    @media (max-width: 359px) {
+      .nav-name { display: none; }
+      .nav-inner { justify-content: flex-end; }
+    }
+
+    /* touch devices: no grey tap flash, add a light press response */
+    @media (hover: none) {
+      a, button { -webkit-tap-highlight-color: transparent; }
+      a:active { opacity: 0.62; }
+      .theme-btn:active { opacity: 1; transform: scale(0.9); }
     }
 
     /* ── Dark theme ── */
@@ -521,7 +564,7 @@
       <div class="tl-item project" data-collabs="" data-interests="game-dev,graphics">
         <div class="tl-date">Jun 2026 <span class="cat-label cat-project">Project</span></div>
         <div class="tl-inner">
-          <div class="tl-thumb"><img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/PCGWorld.jpg" alt=""></div>
+          <div class="tl-thumb"><img loading="lazy" decoding="async" width="1600" height="900" src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/PCGWorld.jpg" alt=""></div>
           <div class="tl-body">
             <div class="tl-title"><a href="https://github.com/new-tonAA/PCG" target="_blank">PCG WORLD</a></div>
             <div class="tl-desc">A Three.js-based procedural city generation and real-time rendering engine. Procedurally generates cities, buildings, and roads with real-time rendering.</div>
@@ -535,7 +578,7 @@
       <div class="tl-item paper" data-collabs="songyin-tang,yile-cai,yuqi-bu,liuwu-li,yi-cai,zikun-deng" data-interests="multimodal,cv">
         <div class="tl-date">Mar 2025 – Jul 2026 <span class="cat-label cat-research">Research</span></div>
         <div class="tl-inner">
-          <div class="tl-thumb"><img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/VGD.png" alt=""></div>
+          <div class="tl-thumb"><img loading="lazy" decoding="async" width="2027" height="920" src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/VGD.png" alt=""></div>
           <div class="tl-body">
             <div class="tl-title">Show Me the Answer: Visual Grounding on Dashboards</div>
             <div class="tl-authors"><span class="me">Yuefei Zhang</span>, Songyin Tang, Yile Cai, Yuqi Bu, Liuwu Li, Yi Cai, Zikun Deng*</div>
@@ -551,7 +594,7 @@
       <div class="tl-item project" data-collabs="" data-interests="sw-testing,ai-agents">
         <div class="tl-date">Mar – Apr 2026 <span class="cat-label cat-project">Project</span></div>
         <div class="tl-inner">
-          <div class="tl-thumb"><img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/TestingAgent.png" alt=""></div>
+          <div class="tl-thumb"><img loading="lazy" decoding="async" width="1860" height="915" src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/TestingAgent.png" alt=""></div>
           <div class="tl-body">
             <div class="tl-title"><a href="https://github.com/new-tonAA/stupid_agent" target="_blank">Software Testing Agent</a></div>
             <div class="tl-desc">End-to-end testing agent for C-based projects (e.g., SQLite3) with a collaborative pipeline for environment setup, static analysis, planning, execution, and refinement. Features iterative self-healing and dual-platform LLM integration.</div>
@@ -564,7 +607,7 @@
       <div class="tl-item award" data-collabs="zijin-tu,junxi-guo" data-interests="math-modeling">
         <div class="tl-date">Feb 2026 <span class="cat-label cat-award">Award</span></div>
         <div class="tl-inner">
-          <div class="tl-thumb"><img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/MCM.png" alt=""></div>
+          <div class="tl-thumb"><img loading="lazy" decoding="async" width="1679" height="1170" src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/MCM.png" alt=""></div>
           <div class="tl-body">
             <div class="tl-title">Meritorious Winner · Mathematical Contest in Modeling (MCM)</div>
             <div class="tl-authors">Zijin Tu, Junxi Guo, <span class="me">Yuefei Zhang</span></div>
@@ -596,7 +639,7 @@
       <div class="tl-item award" data-collabs="zijin-tu,xiuling-jin" data-interests="hardware,sensors,unreal-engine">
         <div class="tl-date">Nov 2025 <span class="cat-label cat-award">Award</span></div>
         <div class="tl-inner">
-          <div class="tl-thumb"><img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/IT15.jpg" alt=""></div>
+          <div class="tl-thumb"><img loading="lazy" decoding="async" width="2772" height="3883" src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/IT15.jpg" alt=""></div>
           <div class="tl-body">
             <div class="tl-title">Second Prize · National IT Innovation Application Contest</div>
             <div class="tl-authors"><span class="me">Yuefei Zhang</span>, Zijin TU, Xiuling Jin</div>
@@ -612,7 +655,7 @@
       <div class="tl-item project" data-collabs="xiuling-jin" data-interests="game-dev,unreal-engine">
         <div class="tl-date">Oct – Nov 2025 <span class="cat-label cat-project">Project</span></div>
         <div class="tl-inner">
-          <div class="tl-thumb"><img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/ResidentRun.png" alt=""></div>
+          <div class="tl-thumb"><img loading="lazy" decoding="async" width="715" height="401" src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/ResidentRun.png" alt=""></div>
           <div class="tl-body">
             <div class="tl-title"><a href="https://github.com/new-tonAA/ResidentRun-UE5Game" target="_blank">ResidentRun</a></div>
             <div class="tl-authors"><span class="me">Yuefei Zhang</span>, Xiuling Jin</div>
@@ -626,7 +669,7 @@
       <div class="tl-item award" data-collabs="zijin-tu,junxi-guo" data-interests="math-modeling">
         <div class="tl-date">Sep 2025 <span class="cat-label cat-award">Award</span></div>
         <div class="tl-inner">
-          <div class="tl-thumb"><img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/CUMCM.png" alt=""></div>
+          <div class="tl-thumb"><img loading="lazy" decoding="async" width="1582" height="1120" src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/CUMCM.png" alt=""></div>
           <div class="tl-body">
             <div class="tl-title">First Prize · China Undergraduate Mathematical Contest in Modeling (CUMCM)</div>
             <div class="tl-authors">Zijin Tu, <span class="me">Yuefei Zhang</span>, Junxi Guo</div>
@@ -642,7 +685,7 @@
       <div class="tl-item project" data-collabs="" data-interests="cv,cross-platform">
         <div class="tl-date">Jun – Sep 2025 <span class="cat-label cat-project">Project</span></div>
         <div class="tl-inner">
-          <div class="tl-thumb"><img src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/TOTOTO.jpg" alt=""></div>
+          <div class="tl-thumb"><img loading="lazy" decoding="async" width="2513" height="1493" src="https://raw.githubusercontent.com/new-tonAA/new-tonAA.github.io/main/image/TOTOTO.jpg" alt=""></div>
           <div class="tl-body">
             <div class="tl-title"><a href="https://github.com/new-tonAA/TOtoTO" target="_blank">TOtoTO — Campus Image Search</a></div>
             <div class="tl-desc">Intelligent tour guide platform for SCUT integrating computer vision and location services. Faiss-based semantic image retrieval, real-time map localization, and AI-generated cultural introductions. Built with Vue 3, Flask, and MySQL.</div>
